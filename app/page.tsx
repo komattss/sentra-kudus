@@ -1,10 +1,9 @@
 import ServiceCard from "@/components/ServiceCard";
+import Image from "next/image";
 import {
-  Building2,
   CheckCircle,
   Zap,
   Shield,
-  Lock,
   Mail,
   Phone,
   MapPin,
@@ -16,29 +15,50 @@ import {
 export default function Home() {
   return (
     <main className="min-h-screen pt-20 pb-12 bg-white">
-      {/* Hero Section */}
-      <section className="bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] text-white py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Hero Section with Background Image */}
+      <section className="relative text-white py-32 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/backgroundsentra.jpg"
+            alt="Sentrakudus Background"
+            fill
+            className="object-cover"
+            priority
+            quality={90}
+          />
+          {/* Gradient Overlay untuk keterbacaan teks */}
+          <div className="absolute inset-0 bg-linear-to-br from-[#8b9e7d]/90 via-[#6b7a5e]/85 to-[#5a6850]/90"></div>
+          {/* Pattern Overlay */}
+          <div className="absolute inset-0 bg-black/20"></div>
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="inline-block p-4 bg-white/10 rounded-2xl backdrop-blur-sm mb-6">
-              <Building2
-                className="w-16 h-16 text-white mx-auto"
-                strokeWidth={1.5}
+            <div className="inline-block p-5 bg-white/20 rounded-3xl backdrop-blur-md mb-8 shadow-2xl border border-white/30">
+              <Image
+                src="/logo-sentrakudus.svg"
+                alt="Logo Sentrakudus"
+                width={72}
+                height={72}
+                className="mx-auto drop-shadow-lg"
+                priority
               />
             </div>
-            <h1 className="text-5xl sm:text-6xl font-bold mb-6">
+            <h1 className="text-5xl sm:text-7xl font-bold mb-6 drop-shadow-lg">
               Sentrakudus Superapp
             </h1>
-            <p className="text-xl sm:text-2xl text-white/90 max-w-3xl mx-auto mb-10 leading-relaxed">
+            <p className="text-xl sm:text-2xl text-white/95 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-md font-light">
               Platform terpadu untuk layanan kota pintar Sentrakudus. Akses
               semua layanan publik, informasi udara, bisnis lokal, dan mobilitas
               dalam satu aplikasi.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-[#6b7a5e] px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl">
-                Mulai Sekarang
+            <div className="flex flex-col sm:flex-row gap-5 justify-center">
+              <button className="bg-white text-[#6b7a5e] px-10 py-4 rounded-xl font-bold hover:bg-gray-50 transition-all duration-300 shadow-2xl hover:shadow-3xl hover:scale-105">
+                Mulai Sekarang →
               </button>
-              <button className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/10 transition-all backdrop-blur-sm">
+              <button className="border-2 border-white/80 text-white px-10 py-4 rounded-xl font-bold hover:bg-white/20 transition-all duration-300 backdrop-blur-md shadow-xl hover:border-white">
                 Pelajari Lebih Lanjut
               </button>
             </div>
@@ -47,13 +67,17 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-gray-900">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-20">
+          <span className="inline-block px-4 py-2 bg-[#8b9e7d]/10 text-[#6b7a5e] rounded-full text-sm font-semibold mb-4">
+            ✨ Layanan Kami
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-5 text-gray-900">
             Fitur Unggulan
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Jelajahi berbagai layanan yang dirancang untuk memudahkan hidup Anda
+            dan mewujudkan kota pintar
           </p>
         </div>
 
@@ -90,38 +114,63 @@ export default function Home() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gray-50 py-20">
+      <section className="bg-linear-to-b from-gray-50 to-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <p className="text-5xl font-bold text-[#8b9e7d] mb-3">100+</p>
-              <p className="text-gray-600 font-medium">Layanan Publik</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+              <p className="text-5xl sm:text-6xl font-bold text-[#8b9e7d] mb-3">
+                100+
+              </p>
+              <p className="text-gray-700 font-semibold text-sm sm:text-base">
+                Layanan Publik
+              </p>
             </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <p className="text-5xl font-bold text-[#8b9e7d] mb-3">50</p>
-              <p className="text-gray-600 font-medium">Titik Monitoring</p>
+            <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+              <p className="text-5xl sm:text-6xl font-bold text-[#8b9e7d] mb-3">
+                50
+              </p>
+              <p className="text-gray-700 font-semibold text-sm sm:text-base">
+                Titik Monitoring
+              </p>
             </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <p className="text-5xl font-bold text-[#8b9e7d] mb-3">500+</p>
-              <p className="text-gray-600 font-medium">UMKM Terdaftar</p>
+            <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+              <p className="text-5xl sm:text-6xl font-bold text-[#8b9e7d] mb-3">
+                500+
+              </p>
+              <p className="text-gray-700 font-semibold text-sm sm:text-base">
+                UMKM Terdaftar
+              </p>
             </div>
-            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-              <p className="text-5xl font-bold text-[#8b9e7d] mb-3">24/7</p>
-              <p className="text-gray-600 font-medium">Real-time Data</p>
+            <div className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow border border-gray-100">
+              <p className="text-5xl sm:text-6xl font-bold text-[#8b9e7d] mb-3">
+                24/7
+              </p>
+              <p className="text-gray-700 font-semibold text-sm sm:text-base">
+                Real-time Data
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Info Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-3xl font-bold mb-12 text-gray-900 text-center">
-          Kenapa Memilih Sentrakudus Superapp?
-        </h2>
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-2 bg-[#8b9e7d]/10 text-[#6b7a5e] rounded-full text-sm font-semibold mb-4">
+            ✨ Keunggulan
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-bold mb-5 text-gray-900">
+            Kenapa Memilih Sentrakudus?
+          </h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Platform yang dirancang dengan fokus pada kemudahan, kecepatan, dan
+            keamanan
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-8 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-14 h-14 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-xl flex items-center justify-center mb-6">
-              <CheckCircle className="w-8 h-8 text-white" />
+          <div className="p-8 bg-white rounded-2xl shadow-md border border-gray-100 hover:shadow-xl hover:border-[#8b9e7d]/30 transition-all duration-300">
+            <div className="w-16 h-16 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+              <CheckCircle className="w-9 h-9 text-white" />
             </div>
             <h3 className="text-xl font-bold mb-3 text-gray-900">
               Terpusat & Mudah
@@ -131,9 +180,9 @@ export default function Home() {
               terpisah
             </p>
           </div>
-          <div className="p-8 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-14 h-14 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-xl flex items-center justify-center mb-6">
-              <Zap className="w-8 h-8 text-white" />
+          <div className="p-8 bg-white rounded-2xl shadow-md border border-gray-100 hover:shadow-xl hover:border-[#8b9e7d]/30 transition-all duration-300">
+            <div className="w-16 h-16 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+              <Zap className="w-9 h-9 text-white" />
             </div>
             <h3 className="text-xl font-bold mb-3 text-gray-900">
               Cepat & Real-time
@@ -142,9 +191,9 @@ export default function Home() {
               Informasi terbaru dan akurat diperbarui secara real-time
             </p>
           </div>
-          <div className="p-8 bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="w-14 h-14 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-xl flex items-center justify-center mb-6">
-              <Shield className="w-8 h-8 text-white" />
+          <div className="p-8 bg-white rounded-2xl shadow-md border border-gray-100 hover:shadow-xl hover:border-[#8b9e7d]/30 transition-all duration-300">
+            <div className="w-16 h-16 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+              <Shield className="w-9 h-9 text-white" />
             </div>
             <h3 className="text-xl font-bold mb-3 text-gray-900">
               Aman & Terpercaya
@@ -157,130 +206,199 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="relative bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] text-white py-24 overflow-hidden">
+      <section className="relative bg-linear-to-br from-[#8b9e7d] via-[#7a8c6e] to-[#6b7a5e] text-white py-28 overflow-hidden">
+        {/* Decorative Background Elements */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
+          <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
+          <div
+            className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
+          <div
+            className="absolute top-1/2 left-1/2 w-64 h-64 bg-white rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "2s" }}
+          ></div>
         </div>
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl mb-6">
-              <Zap className="w-10 h-10 text-white" />
+
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-white/20 backdrop-blur-md rounded-3xl mb-8 shadow-2xl border border-white/30">
+              <Zap className="w-12 h-12 text-white drop-shadow-lg" />
             </div>
-            <h2 className="text-4xl font-bold mb-4">
+            <h2 className="text-4xl sm:text-5xl font-bold mb-6 drop-shadow-lg">
               Wujudkan Kota Cerdas Bersama
             </h2>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
+            <p className="text-xl text-white/95 max-w-2xl mx-auto leading-relaxed drop-shadow-md">
               Bergabunglah dengan ribuan warga yang telah merasakan transformasi
               digital kota Kudus
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">50K+</div>
-              <div className="text-white/80">Pengguna Aktif</div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+            <div className="bg-white/15 backdrop-blur-md rounded-2xl p-8 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-xl">
+              <div className="text-4xl font-bold mb-2 drop-shadow-md">50K+</div>
+              <div className="text-white/90 font-medium">Pengguna Aktif</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">4.8★</div>
-              <div className="text-white/80">Rating Aplikasi</div>
+            <div className="bg-white/15 backdrop-blur-md rounded-2xl p-8 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-xl">
+              <div className="text-4xl font-bold mb-2 drop-shadow-md">
+                4.8⭐
+              </div>
+              <div className="text-white/90 font-medium">Rating Aplikasi</div>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center">
-              <div className="text-3xl font-bold mb-2">24/7</div>
-              <div className="text-white/80">Layanan Aktif</div>
+            <div className="bg-white/15 backdrop-blur-md rounded-2xl p-8 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 shadow-xl">
+              <div className="text-4xl font-bold mb-2 drop-shadow-md">24/7</div>
+              <div className="text-white/90 font-medium">Layanan Aktif</div>
             </div>
           </div>
+
           <div className="text-center">
-            <button className="bg-white text-[#6b7a5e] px-10 py-4 rounded-xl font-bold text-lg hover:bg-gray-50 transition-all hover:scale-105 shadow-xl">
-              Mulai Eksplorasi →
+            <button className="bg-white text-[#6b7a5e] px-12 py-5 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all duration-300 shadow-2xl hover:scale-105 hover:shadow-3xl">
+              Mulai Eksplorasi Sekarang →
             </button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <footer className="bg-linear-to-b from-gray-50 to-white border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-lg flex items-center justify-center">
-                  <Building2 className="w-6 h-6 text-white" />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-12 h-12 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-xl flex items-center justify-center shadow-lg">
+                  <Image
+                    src="/logo-sentrakudus.svg"
+                    alt="Logo Sentrakudus"
+                    width={28}
+                    height={28}
+                  />
                 </div>
                 <span className="font-bold text-xl text-gray-800">
                   SENTRAKUDUS
                 </span>
               </div>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-gray-600 text-sm leading-relaxed mb-6">
                 Platform inovatif untuk mengakses layanan kota pintar Kudus
                 dengan mudah dan cepat
               </p>
+              {/* Social Media Icons */}
+              <div className="flex gap-3">
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-100 hover:bg-[#8b9e7d] rounded-lg flex items-center justify-center text-gray-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
+                  aria-label="Facebook"
+                >
+                  <Facebook className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-100 hover:bg-[#8b9e7d] rounded-lg flex items-center justify-center text-gray-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="w-5 h-5" />
+                </a>
+                <a
+                  href="#"
+                  className="w-10 h-10 bg-gray-100 hover:bg-[#8b9e7d] rounded-lg flex items-center justify-center text-gray-600 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              </div>
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 mb-4">Layanan</h4>
+              <h4 className="font-bold text-gray-900 mb-5 text-base">
+                Layanan
+              </h4>
               <ul className="text-gray-600 space-y-3 text-sm">
                 <li>
                   <a
                     href="/community"
-                    className="hover:text-[#8b9e7d] transition flex items-center gap-2"
+                    className="hover:text-[#8b9e7d] transition-colors flex items-center gap-2 group"
                   >
-                    <span className="text-[#8b9e7d]">→</span> Services &
-                    Community
+                    <span className="text-[#8b9e7d] group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                    <span>Services & Community</span>
                   </a>
                 </li>
                 <li>
                   <a
                     href="/air-monitoring"
-                    className="hover:text-[#8b9e7d] transition flex items-center gap-2"
+                    className="hover:text-[#8b9e7d] transition-colors flex items-center gap-2 group"
                   >
-                    <span className="text-[#8b9e7d]">→</span> Air Quality
+                    <span className="text-[#8b9e7d] group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                    <span>Air Quality</span>
                   </a>
                 </li>
                 <li>
                   <a
                     href="/umkm-map"
-                    className="hover:text-[#8b9e7d] transition flex items-center gap-2"
+                    className="hover:text-[#8b9e7d] transition-colors flex items-center gap-2 group"
                   >
-                    <span className="text-[#8b9e7d]">→</span> UMKM Map
+                    <span className="text-[#8b9e7d] group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                    <span>UMKM Map</span>
                   </a>
                 </li>
                 <li>
                   <a
                     href="/smart-mobility"
-                    className="hover:text-[#8b9e7d] transition flex items-center gap-2"
+                    className="hover:text-[#8b9e7d] transition-colors flex items-center gap-2 group"
                   >
-                    <span className="text-[#8b9e7d]">→</span> Smart Mobility
+                    <span className="text-[#8b9e7d] group-hover:translate-x-1 transition-transform">
+                      →
+                    </span>
+                    <span>Smart Mobility</span>
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 mb-4">Tentang</h4>
+              <h4 className="font-bold text-gray-900 mb-5 text-base">
+                Tentang
+              </h4>
               <ul className="text-gray-600 space-y-3 text-sm">
                 <li>
-                  <a href="#" className="hover:text-[#8b9e7d] transition">
+                  <a
+                    href="#"
+                    className="hover:text-[#8b9e7d] transition-colors"
+                  >
                     Tentang Kami
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-[#8b9e7d] transition">
+                  <a
+                    href="#"
+                    className="hover:text-[#8b9e7d] transition-colors"
+                  >
                     Tim Kami
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-[#8b9e7d] transition">
+                  <a
+                    href="#"
+                    className="hover:text-[#8b9e7d] transition-colors"
+                  >
                     Karir
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-[#8b9e7d] transition">
+                  <a
+                    href="#"
+                    className="hover:text-[#8b9e7d] transition-colors"
+                  >
                     Blog
                   </a>
                 </li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-gray-800 mb-4">Kontak</h4>
-              <ul className="text-gray-600 space-y-3 text-sm">
+              <h4 className="font-bold text-gray-900 mb-5 text-base">Kontak</h4>
+              <ul className="text-gray-600 space-y-4 text-sm">
                 <li className="flex items-start gap-2">
                   <Mail className="w-5 h-5 text-[#8b9e7d] mt-0.5" />
                   <span>info@sentrakudus.id</span>
@@ -296,29 +414,19 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-100 pt-8">
+          <div className="border-t border-gray-200 pt-10">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <p className="text-gray-600 text-sm">
-                &copy; 2024 Sentrakudus Superapp. All rights reserved.
+              <p className="text-gray-600 text-sm font-medium">
+                © {new Date().getFullYear()} Sentrakudus Superapp. All rights
+                reserved.
               </p>
-              <div className="flex gap-6">
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-[#8b9e7d] transition"
-                >
-                  <Facebook className="w-5 h-5" />
+              <div className="flex gap-4 text-sm text-gray-600">
+                <a href="#" className="hover:text-[#8b9e7d] transition-colors">
+                  Kebijakan Privasi
                 </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-[#8b9e7d] transition"
-                >
-                  <Twitter className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-[#8b9e7d] transition"
-                >
-                  <Instagram className="w-5 h-5" />
+                <span className="text-gray-300">|</span>
+                <a href="#" className="hover:text-[#8b9e7d] transition-colors">
+                  Syarat & Ketentuan
                 </a>
               </div>
             </div>
