@@ -8,6 +8,7 @@ import {
 import { useState } from "react";
 import Badge from "@/components/Badge";
 import MapContainer from "@/components/MapContainer";
+import { Zap, MapPin, Info, Clock, Map, Users } from "lucide-react";
 
 export default function SmartMobilityPage() {
   const [selectedRoad, setSelectedRoad] = useState(trafficData[0]);
@@ -63,19 +64,7 @@ export default function SmartMobilityPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 10V3L4 14h7v7l9-11h-7z"
-                />
-              </svg>
+              <Zap className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold">Smart Mobility</h1>
           </div>
@@ -94,25 +83,7 @@ export default function SmartMobilityPage() {
             <div className="lg:col-span-2">
               {/* Map */}
               <div className="flex items-center gap-3 mb-4">
-                <svg
-                  className="w-6 h-6 text-[#8b9e7d]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+                <MapPin className="w-6 h-6 text-[#8b9e7d]" />
                 <h2 className="text-2xl font-bold text-gray-800">
                   Peta Lalu Lintas
                 </h2>
@@ -129,20 +100,8 @@ export default function SmartMobilityPage() {
                 height="h-96"
               />
 
-              <div className="flex items-start gap-2 text-sm text-gray-600 mt-3 mb-6">
-                <svg
-                  className="w-5 h-5 text-[#8b9e7d] shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+              <div className="flex items-start gap-2 text-sm text-gray-800 mt-3 mb-6">
+                <Info className="w-5 h-5 text-[#8b9e7d] shrink-0 mt-0.5" />
                 <p>
                   Klik pada marker jalan di peta untuk melihat detail kondisi
                   lalu lintasnya
@@ -172,7 +131,7 @@ export default function SmartMobilityPage() {
 
                 {/* Traffic Status Visual */}
                 <div className="mb-6">
-                  <p className="text-sm text-gray-600 mb-2">
+                  <p className="text-sm text-gray-800 mb-2">
                     Tingkat Kemacetan
                   </p>
                   <div className="bg-gray-100 rounded-full h-6 overflow-hidden">
@@ -183,7 +142,7 @@ export default function SmartMobilityPage() {
                       style={{ width: `${selectedRoad.density}%` }}
                     ></div>
                   </div>
-                  <div className="flex justify-between text-xs text-gray-600 mt-1">
+                  <div className="flex justify-between text-xs text-gray-800 mt-1">
                     <span>0%</span>
                     <span className="font-semibold">
                       {selectedRoad.density}%
@@ -195,7 +154,7 @@ export default function SmartMobilityPage() {
                 {/* Traffic Metrics */}
                 <div className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
                   <div className="bg-linear-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
-                    <p className="text-sm text-gray-600 mb-1">
+                    <p className="text-sm text-gray-800 mb-1">
                       Kecepatan Rata-rata
                     </p>
                     <p className="text-2xl font-bold text-gray-800">
@@ -203,7 +162,7 @@ export default function SmartMobilityPage() {
                     </p>
                   </div>
                   <div className="bg-linear-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
-                    <p className="text-sm text-gray-600 mb-1">
+                    <p className="text-sm text-gray-800 mb-1">
                       Kepadatan Lalu Lintas
                     </p>
                     <p className="text-2xl font-bold text-gray-800">
@@ -215,19 +174,7 @@ export default function SmartMobilityPage() {
                 {/* Recommendations */}
                 <div className="p-6 bg-blue-50 rounded-lg border border-blue-100">
                   <div className="flex items-start gap-3">
-                    <svg
-                      className="w-6 h-6 text-blue-600 shrink-0 mt-0.5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
+                    <Info className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
                     <div>
                       <h3 className="font-bold text-blue-900 mb-2">
                         Rekomendasi Perjalanan
@@ -295,7 +242,7 @@ export default function SmartMobilityPage() {
                         className={`text-xs ${
                           selectedRoad.id === road.id
                             ? "text-white/90"
-                            : "text-gray-600"
+                            : "text-gray-800"
                         }`}
                       >
                         {road.averageSpeed} km/h
@@ -320,13 +267,13 @@ export default function SmartMobilityPage() {
                     transport.type
                   )} border rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer`}
                 >
-                  <p className="text-sm font-semibold text-gray-600 mb-2">
+                  <p className="text-sm font-semibold text-gray-800 mb-2">
                     {transport.type}
                   </p>
                   <h4 className="text-lg font-bold text-gray-800 mb-2">
                     {transport.name}
                   </h4>
-                  <p className="text-xs text-gray-600 mb-4">
+                  <p className="text-xs text-gray-800 mb-4">
                     {transport.description}
                   </p>
                   <div className="space-y-2 text-sm">
@@ -354,7 +301,7 @@ export default function SmartMobilityPage() {
       </section>
 
       {/* Traffic Status Legend */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-white py-12 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 text-gray-800">
             Keterangan Status Lalu Lintas
@@ -363,28 +310,28 @@ export default function SmartMobilityPage() {
             <div className="bg-white rounded-lg p-6 border border-green-200">
               <div className="w-full h-2 bg-green-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-green-600 mb-2">Lancar</h4>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-800">
                 Tidak ada hambatan, lalu lintas berjalan normal
               </p>
             </div>
             <div className="bg-white rounded-lg p-6 border border-blue-200">
               <div className="w-full h-2 bg-blue-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-blue-600 mb-2">Normal</h4>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-800">
                 Sedikit hambatan tapi masih lancar
               </p>
             </div>
             <div className="bg-white rounded-lg p-6 border border-orange-200">
               <div className="w-full h-2 bg-orange-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-orange-600 mb-2">Padat</h4>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-800">
                 Banyak kendaraan, lalu lintas melambat
               </p>
             </div>
             <div className="bg-white rounded-lg p-6 border border-red-200">
               <div className="w-full h-2 bg-red-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-red-600 mb-2">Macet</h4>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-800">
                 Sangat ramai, lalu lintas berhenti-berjalan
               </p>
             </div>
@@ -393,82 +340,48 @@ export default function SmartMobilityPage() {
       </section>
 
       {/* Tips Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <h2 className="text-3xl font-bold mb-8 text-gray-800">
-          Tips Berkendara Aman
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
-            <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+      <section className="bg-gray-50 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold mb-8 text-gray-800">
+            Tips Berkendara Aman
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
+              <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
+                Rencanakan Perjalanan
+              </h3>
+              <p className="text-gray-800">
+                Cek kondisi lalu lintas sebelum berangkat untuk menentukan waktu
+                keberangkatan terbaik
+              </p>
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-800">
-              Rencanakan Perjalanan
-            </h3>
-            <p className="text-gray-600">
-              Cek kondisi lalu lintas sebelum berangkat untuk menentukan waktu
-              keberangkatan terbaik
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
-            <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
-                />
-              </svg>
+            <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
+              <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
+                <Map className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
+                Gunakan Rute Alternatif
+              </h3>
+              <p className="text-gray-800">
+                Saat macet, coba rute alternatif yang mungkin lebih lancar untuk
+                menghemat waktu
+              </p>
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-800">
-              Gunakan Rute Alternatif
-            </h3>
-            <p className="text-gray-600">
-              Saat macet, coba rute alternatif yang mungkin lebih lancar untuk
-              menghemat waktu
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
-            <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
+            <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
+              <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
+                Gunakan Transportasi Publik
+              </h3>
+              <p className="text-gray-800">
+                Pertimbangkan transportasi umum untuk menghindari stres
+                berkendara di saat macet
+              </p>
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-800">
-              Gunakan Transportasi Publik
-            </h3>
-            <p className="text-gray-600">
-              Pertimbangkan transportasi umum untuk menghindari stres berkendara
-              di saat macet
-            </p>
           </div>
         </div>
       </section>

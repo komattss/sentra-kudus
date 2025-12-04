@@ -5,6 +5,15 @@ import { useState } from "react";
 import Rating from "@/components/Rating";
 import Badge from "@/components/Badge";
 import MapContainer from "@/components/MapContainer";
+import {
+  ShoppingCart,
+  MapPin,
+  Phone,
+  Clock,
+  Info,
+  Heart,
+  Award,
+} from "lucide-react";
 
 export default function UMKMMapPage() {
   const [selectedUMKM, setSelectedUMKM] = useState(umkmData[0]);
@@ -33,19 +42,7 @@ export default function UMKMMapPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-              <svg
-                className="w-8 h-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
+              <ShoppingCart className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold">UMKM Map</h1>
           </div>
@@ -77,7 +74,7 @@ export default function UMKMMapPage() {
               </button>
             ))}
           </div>
-          <p className="text-sm text-gray-600 mt-4">
+          <p className="text-sm text-gray-800 mt-4">
             Menampilkan {filteredUMKM.length} UMKM
           </p>
         </div>
@@ -90,25 +87,7 @@ export default function UMKMMapPage() {
             {/* Map */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <svg
-                  className="w-6 h-6 text-[#8b9e7d]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
+                <MapPin className="w-6 h-6 text-[#8b9e7d]" />
                 <h2 className="text-2xl font-bold text-gray-800">
                   Peta Lokasi UMKM
                 </h2>
@@ -127,20 +106,8 @@ export default function UMKMMapPage() {
                 height="h-[500px]"
               />
 
-              <div className="flex items-start gap-2 text-sm text-gray-600 mt-3 mb-6">
-                <svg
-                  className="w-5 h-5 text-[#8b9e7d] shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
+              <div className="flex items-start gap-2 text-sm text-gray-700 mt-3 mb-6">
+                <Info className="w-5 h-5 text-[#8b9e7d] shrink-0 mt-0.5" />
                 <p>
                   Klik pada marker UMKM di peta untuk melihat detail lengkapnya
                 </p>
@@ -163,7 +130,7 @@ export default function UMKMMapPage() {
                     <div className="text-4xl">{selectedUMKM.image}</div>
                   </div>
 
-                  <p className="text-gray-600 mb-6">
+                  <p className="text-gray-700 mb-6">
                     {selectedUMKM.description}
                   </p>
 
@@ -171,26 +138,8 @@ export default function UMKMMapPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <svg
-                          className="w-4 h-4 text-gray-600"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                          />
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                          />
-                        </svg>
-                        <p className="text-sm text-gray-600">Lokasi</p>
+                        <MapPin className="w-4 h-4 text-gray-800" />
+                        <p className="text-sm text-gray-800">Lokasi</p>
                       </div>
                       <p className="font-semibold text-gray-800">
                         {selectedUMKM.address}
@@ -198,20 +147,8 @@ export default function UMKMMapPage() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <svg
-                          className="w-4 h-4 text-gray-600"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                          />
-                        </svg>
-                        <p className="text-sm text-gray-600">Telepon</p>
+                        <Phone className="w-4 h-4 text-gray-800" />
+                        <p className="text-sm text-gray-800">Telepon</p>
                       </div>
                       <p className="font-semibold text-gray-800">
                         {selectedUMKM.phone}
@@ -219,20 +156,8 @@ export default function UMKMMapPage() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <svg
-                          className="w-4 h-4 text-gray-600"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                        <p className="text-sm text-gray-600">Jam Operasional</p>
+                        <Clock className="w-4 h-4 text-gray-800" />
+                        <p className="text-sm text-gray-800">Jam Operasional</p>
                       </div>
                       <p className="font-semibold text-gray-800">
                         {selectedUMKM.openingHours}
@@ -242,7 +167,7 @@ export default function UMKMMapPage() {
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <svg
-                            className="w-4 h-4 text-gray-600"
+                            className="w-4 h-4 text-gray-800"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -254,7 +179,7 @@ export default function UMKMMapPage() {
                               d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
                             />
                           </svg>
-                          <p className="text-sm text-gray-600">Website</p>
+                          <p className="text-sm text-gray-800">Website</p>
                         </div>
                         <a
                           href={`https://${selectedUMKM.website}`}
@@ -313,7 +238,7 @@ export default function UMKMMapPage() {
                           className={`text-xs mt-1 ${
                             selectedUMKM.id === umkm.id
                               ? "text-white/90"
-                              : "text-gray-600"
+                              : "text-gray-800"
                           }`}
                         >
                           {umkm.category}
@@ -370,47 +295,23 @@ export default function UMKMMapPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <div className="w-16 h-16 bg-[#8b9e7d] rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
+                <Heart className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-gray-800">
                 Dukung Ekonomi Lokal
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Uang Anda langsung membantu pengusaha lokal dan keluarganya
               </p>
             </div>
             <div className="text-center">
               <div className="w-16 h-16 bg-[#8b9e7d] rounded-full flex items-center justify-center mx-auto mb-4">
-                <svg
-                  className="w-8 h-8 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                  />
-                </svg>
+                <Award className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-lg font-bold mb-2 text-gray-800">
                 Kualitas Terjamin
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Produk dengan kualitas tinggi dan harga yang kompetitif
               </p>
             </div>
@@ -433,7 +334,7 @@ export default function UMKMMapPage() {
               <h3 className="text-lg font-bold mb-2 text-gray-800">
                 Produk Unik
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Temukan produk eksklusif yang tidak dijual di tempat lain
               </p>
             </div>

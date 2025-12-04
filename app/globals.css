@@ -55,3 +55,47 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--sage-dark);
 }
+
+/* Leaflet Map Controls - Fix z-index and styling */
+.leaflet-control-container {
+  z-index: 800 !important;
+}
+
+.leaflet-control-zoom,
+.leaflet-control-attribution {
+  z-index: 800 !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background: white !important;
+  color: var(--sage-green) !important;
+  border: 2px solid var(--sage-green) !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 30px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  transition: all 0.2s ease !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background: var(--sage-green) !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+.leaflet-control-attribution {
+  background: white !important;
+  font-size: 10px !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.leaflet-bottom.leaflet-right {
+  z-index: 800 !important;
+}
