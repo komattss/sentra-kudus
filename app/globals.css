@@ -1,14 +1,15 @@
 @import "tailwindcss";
+
 @import "leaflet/dist/leaflet.css";
 
 :root {
-  --background: #ffffff;
-  --foreground: #1f2937;
-  --primary: #8b9e7d;
-  --primary-dark: #6b7a5e;
+  --background: #f3f6f1;
+  --foreground: #0f1f17;
+  --primary: #6f8b55;
+  --primary-dark: #4f6a3a;
   --sage-green: #8b9e7d;
-  --sage-dark: #6b7a5e;
-  --sage-light: #a8b89e;
+  --sage-dark: #5b714b;
+  --sage-light: #c3d2b6;
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
@@ -19,10 +20,10 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #111827;
-    --foreground: #f3f4f6;
-    --primary: #a8b89e;
-    --primary-dark: #8b9e7d;
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --primary: #9ab48a;
+    --primary-dark: #7a916a;
   }
 }
 
@@ -32,6 +33,17 @@ html {
 
 body {
   background-color: var(--background);
+  background-image: radial-gradient(
+      circle at 20% 20%,
+      rgba(111, 139, 85, 0.12),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(195, 210, 182, 0.14),
+      transparent 26%
+    ),
+    linear-gradient(180deg, #f8faf6 0%, #eef4ea 60%, #f7faf5 100%);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -44,16 +56,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--gray-100);
+  background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--sage-green);
+  background: #888;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--sage-dark);
+  background: #555;
 }
 
 /* Leaflet Map Controls - Fix z-index and styling */

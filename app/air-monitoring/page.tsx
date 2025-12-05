@@ -18,9 +18,8 @@ export default function AirMonitoringPage() {
       case "Sedang":
         return "yellow";
       case "Tidak Sehat":
-        return "red";
       case "Sangat Tidak Sehat":
-        return "purple";
+        return "red";
       default:
         return "green";
     }
@@ -39,14 +38,14 @@ export default function AirMonitoringPage() {
         ? "#eab308"
         : station.status === "Tidak Sehat"
         ? "#ef4444"
-        : "#7c3aed",
+        : "#7f1d1d",
     selected: selectedStation.id === station.id,
   }));
 
   return (
-    <main className="min-h-screen pt-20 pb-12">
+    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-green-50 via-white to-green-100">
       {/* Hero */}
-      <section className="bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] text-white py-16">
+      <section className="bg-linear-to-br from-green-500 to-green-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
@@ -62,12 +61,12 @@ export default function AirMonitoringPage() {
       </section>
 
       {/* Main Content */}
-      <section className="bg-white py-12">
+      <section className="bg-green-50/90 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* AQI Map */}
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-4">
-              <MapPin className="w-6 h-6 text-[#8b9e7d]" />
+              <MapPin className="w-6 h-6 text-green-500" />
               <h2 className="text-2xl font-bold text-gray-800">
                 Peta Kualitas Udara
               </h2>
@@ -86,7 +85,7 @@ export default function AirMonitoringPage() {
 
             <div className="flex items-start gap-2 mt-3 text-sm text-gray-600">
               <svg
-                className="w-5 h-5 text-[#8b9e7d] shrink-0 mt-0.5"
+                className="w-5 h-5 text-green-500 shrink-0 mt-0.5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -108,7 +107,7 @@ export default function AirMonitoringPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Selected Station Detail */}
             <div className="lg:col-span-2">
-              <div className="bg-white rounded-lg shadow-lg p-8">
+              <div className="bg-white/95 rounded-lg shadow-lg p-8 border border-green-100">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-3xl font-bold text-gray-800">
                     {selectedStation.location}
@@ -137,42 +136,42 @@ export default function AirMonitoringPage() {
 
                 {/* Pollutants Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-100">
                     <p className="text-sm text-gray-600 mb-1">PM2.5</p>
                     <p className="text-2xl font-bold text-gray-800">
                       {selectedStation.pm25}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">µg/m³</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-100">
                     <p className="text-sm text-gray-600 mb-1">PM10</p>
                     <p className="text-2xl font-bold text-gray-800">
                       {selectedStation.pm10}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">µg/m³</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-100">
                     <p className="text-sm text-gray-600 mb-1">O₃</p>
                     <p className="text-2xl font-bold text-gray-800">
                       {selectedStation.o3}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">ppb</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-100">
                     <p className="text-sm text-gray-600 mb-1">NO₂</p>
                     <p className="text-2xl font-bold text-gray-800">
                       {selectedStation.no2}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">ppb</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-100">
                     <p className="text-sm text-gray-600 mb-1">SO₂</p>
                     <p className="text-2xl font-bold text-gray-800">
                       {selectedStation.so2}
                     </p>
                     <p className="text-xs text-gray-500 mt-1">ppb</p>
                   </div>
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-100">
                     <p className="text-sm text-gray-600 mb-1">CO</p>
                     <p className="text-2xl font-bold text-gray-800">
                       {selectedStation.co}
@@ -182,33 +181,33 @@ export default function AirMonitoringPage() {
                 </div>
 
                 {/* Health Recommendations */}
-                <div className="p-6 bg-blue-50 rounded-lg border border-blue-100">
+                <div className="p-6 bg-green-50 rounded-lg border border-green-200">
                   <div className="flex items-start gap-3">
-                    <Info className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
+                    <Info className="w-6 h-6 text-green-500 shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-bold text-blue-900 mb-2">
+                      <h3 className="font-bold text-gray-900 mb-2">
                         Rekomendasi Kesehatan
                       </h3>
                       {selectedStation.status === "Baik" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Udara saat ini baik. Aman untuk aktivitas outdoor
                           sehari-hari.
                         </p>
                       )}
                       {selectedStation.status === "Sedang" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Udara dalam kondisi sedang. Kelompok sensitif
                           sebaiknya membatasi aktivitas outdoor yang berat.
                         </p>
                       )}
                       {selectedStation.status === "Tidak Sehat" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Udara tidak sehat. Hindari aktivitas outdoor jika
                           memungkinkan. Gunakan masker jika harus keluar.
                         </p>
                       )}
                       {selectedStation.status === "Sangat Tidak Sehat" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Udara sangat tidak sehat. Tetap di dalam ruangan.
                           Tutup pintu dan jendela.
                         </p>
@@ -220,7 +219,7 @@ export default function AirMonitoringPage() {
             </div>
 
             {/* Stations List */}
-            <div className="bg-white rounded-lg shadow-lg p-6">
+            <div className="bg-white/95 rounded-lg shadow-lg p-6 border border-green-100">
               <h3 className="text-xl font-bold mb-4 text-gray-800">
                 Stasiun Monitoring
               </h3>
@@ -249,45 +248,43 @@ export default function AirMonitoringPage() {
       </section>
 
       {/* Info Section */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-green-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 text-gray-800">
             Memahami AQI
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white border border-green-200 p-6 rounded-lg">
+            <div className="bg-white border-2 border-green-300 p-6 rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-green-400 hover:bg-white">
               <div className="text-2xl font-bold text-green-700 mb-2">0-50</div>
               <p className="font-semibold text-green-700 mb-2">Baik</p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-900">
                 Aman untuk semua aktivitas
               </p>
             </div>
-            <div className="bg-white border border-yellow-200 p-6 rounded-lg">
+            <div className="bg-white border-2 border-yellow-300 p-6 rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-yellow-400 hover:bg-white">
               <div className="text-2xl font-bold text-yellow-700 mb-2">
                 51-100
               </div>
               <p className="font-semibold text-yellow-700 mb-2">Sedang</p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-900">
                 Beberapa orang mungkin terpengaruh
               </p>
             </div>
-            <div className="bg-white border border-red-200 p-6 rounded-lg">
+            <div className="bg-white border-2 border-red-300 p-6 rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-red-400 hover:bg-white">
               <div className="text-2xl font-bold text-red-700 mb-2">
                 101-150
               </div>
               <p className="font-semibold text-red-700 mb-2">Tidak Sehat</p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-900">
                 Hindari aktivitas outdoor yang berat
               </p>
             </div>
-            <div className="bg-white border border-purple-200 p-6 rounded-lg">
-              <div className="text-2xl font-bold text-purple-700 mb-2">
-                150+
-              </div>
-              <p className="font-semibold text-purple-700 mb-2">
+            <div className="bg-white border-2 border-red-400 p-6 rounded-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-red-500 hover:bg-white">
+              <div className="text-2xl font-bold text-red-700 mb-2">150+</div>
+              <p className="font-semibold text-red-700 mb-2">
                 Sangat Tidak Sehat
               </p>
-              <p className="text-sm text-gray-600">Tetap di dalam ruangan</p>
+              <p className="text-sm text-gray-900">Tetap di dalam ruangan</p>
             </div>
           </div>
         </div>

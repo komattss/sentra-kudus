@@ -31,14 +31,14 @@ export default function UMKMMapPage() {
     lat: umkm.latitude,
     lng: umkm.longitude,
     label: umkm.name,
-    color: "#8b9e7d",
+    color: "#f97316",
     selected: selectedUMKM.id === umkm.id,
   }));
 
   return (
-    <main className="min-h-screen pt-20 pb-12">
+    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-orange-50 via-white to-orange-100">
       {/* Hero */}
-      <section className="bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] text-white py-16">
+      <section className="bg-linear-to-br from-orange-500 to-orange-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
@@ -54,9 +54,9 @@ export default function UMKMMapPage() {
       </section>
 
       {/* Filter */}
-      <section className="bg-white py-8 border-b border-gray-100">
+      <section className="bg-orange-50/90 py-8 border-b border-orange-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-bold mb-4 text-gray-800">
+          <h2 className="text-lg font-bold mb-4 text-gray-900">
             Filter Kategori
           </h2>
           <div className="flex flex-wrap gap-3">
@@ -64,10 +64,10 @@ export default function UMKMMapPage() {
               <button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full font-medium transition-all ${
+                className={`px-4 py-2 rounded-full font-medium transition-all border ${
                   selectedCategory === category
-                    ? "bg-[#8b9e7d] text-white shadow-sm"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? "bg-orange-500 text-white shadow-sm border-orange-600"
+                    : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
                 }`}
               >
                 {category}
@@ -81,13 +81,13 @@ export default function UMKMMapPage() {
       </section>
 
       {/* Map and List */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-orange-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Map */}
             <div className="lg:col-span-2">
               <div className="flex items-center gap-3 mb-4">
-                <MapPin className="w-6 h-6 text-[#8b9e7d]" />
+                <MapPin className="w-6 h-6 text-orange-500" />
                 <h2 className="text-2xl font-bold text-gray-800">
                   Peta Lokasi UMKM
                 </h2>
@@ -107,7 +107,7 @@ export default function UMKMMapPage() {
               />
 
               <div className="flex items-start gap-2 text-sm text-gray-700 mt-3 mb-6">
-                <Info className="w-5 h-5 text-[#8b9e7d] shrink-0 mt-0.5" />
+                <Info className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
                 <p>
                   Klik pada marker UMKM di peta untuk melihat detail lengkapnya
                 </p>
@@ -115,7 +115,7 @@ export default function UMKMMapPage() {
 
               {/* Selected UMKM Detail Card */}
               {selectedUMKM && (
-                <div className="bg-white rounded-lg shadow-lg p-8">
+                <div className="bg-white/95 rounded-lg shadow-lg p-8 border border-orange-100">
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h2 className="text-3xl font-bold text-gray-800 mb-2">
@@ -135,7 +135,7 @@ export default function UMKMMapPage() {
                   </p>
 
                   {/* Details Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 pb-6 border-b border-orange-200">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
                         <MapPin className="w-4 h-4 text-gray-800" />
@@ -185,7 +185,7 @@ export default function UMKMMapPage() {
                           href={`https://${selectedUMKM.website}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-semibold text-[#8b9e7d] hover:text-[#6b7a5e]"
+                          className="font-semibold text-orange-600 hover:text-orange-700"
                         >
                           {selectedUMKM.website}
                         </a>
@@ -203,10 +203,10 @@ export default function UMKMMapPage() {
 
                   {/* CTA Buttons */}
                   <div className="flex gap-4">
-                    <button className="flex-1 bg-[#8b9e7d] hover:bg-[#6b7a5e] text-white font-bold py-3 rounded-lg transition-colors">
+                    <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
                       Hubungi
                     </button>
-                    <button className="flex-1 bg-gray-200 text-gray-800 font-bold py-3 rounded-lg hover:bg-gray-300 transition-colors">
+                    <button className="flex-1 bg-gray-200 text-gray-800 font-bold py-3 rounded-lg hover:bg-gray-300 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
                       Lihat di Peta
                     </button>
                   </div>
@@ -215,7 +215,7 @@ export default function UMKMMapPage() {
             </div>
 
             {/* UMKM List */}
-            <div className="bg-white rounded-lg shadow-lg p-6 h-fit">
+            <div className="bg-white/95 rounded-lg shadow-lg p-6 h-fit border border-orange-100">
               <h3 className="text-xl font-bold mb-4 text-gray-800">
                 Daftar UMKM
               </h3>
@@ -226,19 +226,27 @@ export default function UMKMMapPage() {
                     onClick={() => setSelectedUMKM(umkm)}
                     className={`w-full p-4 rounded-lg text-left transition-all border-l-4 ${
                       selectedUMKM.id === umkm.id
-                        ? "bg-[#8b9e7d] text-white border-[#6b7a5e]"
-                        : "bg-gray-50 border-transparent hover:bg-gray-100"
+                        ? "bg-orange-500 text-white border-orange-600"
+                        : "bg-white text-gray-900 border-gray-200 hover:bg-gray-50 hover:border-gray-300"
                     }`}
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-2xl">{umkm.image}</span>
                       <div className="flex-1">
-                        <div className="font-semibold">{umkm.name}</div>
+                        <div
+                          className={`font-semibold ${
+                            selectedUMKM.id === umkm.id
+                              ? "text-white"
+                              : "text-gray-900"
+                          }`}
+                        >
+                          {umkm.name}
+                        </div>
                         <div
                           className={`text-xs mt-1 ${
                             selectedUMKM.id === umkm.id
                               ? "text-white/90"
-                              : "text-gray-800"
+                              : "text-gray-700"
                           }`}
                         >
                           {umkm.category}
@@ -262,7 +270,7 @@ export default function UMKMMapPage() {
                           className={`text-xs font-semibold ${
                             selectedUMKM.id === umkm.id
                               ? "text-white"
-                              : "text-gray-700"
+                              : "text-gray-900"
                           }`}
                         >
                           {umkm.rating}
@@ -272,7 +280,7 @@ export default function UMKMMapPage() {
                         className={`text-xs ${
                           selectedUMKM.id === umkm.id
                             ? "text-white/80"
-                            : "text-gray-500"
+                            : "text-gray-700"
                         }`}
                       >
                         {umkm.reviews} review
@@ -287,38 +295,38 @@ export default function UMKMMapPage() {
       </section>
 
       {/* Benefits Section */}
-      <section className="bg-white py-12">
+      <section className="bg-orange-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 text-gray-800">
             Mengapa Belanja di UMKM Lokal?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#8b9e7d] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-8 h-8 text-white" />
+            <div className="p-6 bg-white/95 rounded-lg shadow border border-orange-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-orange-300 hover:bg-white">
+              <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                <Heart className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-bold mb-2 text-gray-800">
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
                 Dukung Ekonomi Lokal
               </h3>
               <p className="text-gray-800">
                 Uang Anda langsung membantu pengusaha lokal dan keluarganya
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#8b9e7d] rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-white" />
+            <div className="p-6 bg-white/95 rounded-lg shadow border border-orange-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-orange-300 hover:bg-white">
+              <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                <Award className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-bold mb-2 text-gray-800">
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
                 Kualitas Terjamin
               </h3>
               <p className="text-gray-800">
                 Produk dengan kualitas tinggi dan harga yang kompetitif
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#8b9e7d] rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="p-6 bg-white/95 rounded-lg shadow border border-orange-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-orange-300 hover:bg-white">
+              <div className="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-6 h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -331,7 +339,7 @@ export default function UMKMMapPage() {
                   />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold mb-2 text-gray-800">
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
                 Produk Unik
               </h3>
               <p className="text-gray-800">

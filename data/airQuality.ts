@@ -109,7 +109,7 @@ export const getAQIColor = (status: AirQualityReading["status"]): string => {
     case "Tidak Sehat":
       return "bg-red-500";
     case "Sangat Tidak Sehat":
-      return "bg-purple-900";
+      return "bg-red-900";
     default:
       return "bg-gray-500";
   }

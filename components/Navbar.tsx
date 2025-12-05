@@ -3,7 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { Building2, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import Button from "./ui/button";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,36 +23,40 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-11 h-11 bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+            <div className="w-11 h-11 bg-linear-to-br from-sage-500 to-sage-600 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all">
               <Image
-                src="/logo-sentrakudus.svg"
+                src="/sentrakuduslogo.png"
                 alt="Logo Sentrakudus"
-                width={26}
-                height={26}
+                width={32}
+                height={32}
+                className="object-contain"
               />
             </div>
-            <span className="font-bold text-xl text-gray-800 group-hover:text-[#8b9e7d] transition-colors">
+            <span className="text-lg font-bold text-black hidden sm:inline">
               SENTRAKUDUS
             </span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-2">
+          <div className="hidden md:flex items-center gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-5 py-2.5 text-gray-700 hover:text-[#8b9e7d] hover:bg-[#8b9e7d]/5 rounded-xl transition-all font-semibold text-sm"
+                className="px-5 py-2.5 text-gray-700 hover:text-sage-600 hover:bg-sage-100 rounded-xl transition-all font-semibold text-sm"
               >
                 {link.label}
               </Link>
             ))}
+            <Button variant="outline" size="sm">
+              Masuk
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2.5 rounded-xl text-gray-600 hover:bg-[#8b9e7d]/10 hover:text-[#8b9e7d] transition-all"
+            className="md:hidden p-2.5 rounded-xl text-gray-600 hover:bg-sage-100 hover:text-sage-600 transition-all"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -59,12 +64,12 @@ export default function Navbar() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden pb-5 space-y-2 border-t border-gray-200 pt-5">
+          <div className="md:hidden pb-5 space-y-2 border-t border-gray-200 pt-5 animate-slide-down">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="block px-5 py-3 text-gray-700 hover:text-[#8b9e7d] hover:bg-[#8b9e7d]/5 rounded-xl transition-all font-semibold"
+                className="block px-5 py-3 text-gray-700 hover:text-sage-600 hover:bg-sage-100 rounded-xl transition-all font-semibold"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}

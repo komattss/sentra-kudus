@@ -58,9 +58,9 @@ export default function SmartMobilityPage() {
   }));
 
   return (
-    <main className="min-h-screen pt-20 pb-12">
+    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-red-50 via-white to-red-100">
       {/* Hero */}
-      <section className="bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] text-white py-16">
+      <section className="bg-linear-to-br from-red-500 to-red-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
@@ -76,14 +76,14 @@ export default function SmartMobilityPage() {
       </section>
 
       {/* Main Content */}
-      <section className="bg-white py-12">
+      <section className="bg-red-50/90 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Selected Road Detail */}
             <div className="lg:col-span-2">
               {/* Map */}
               <div className="flex items-center gap-3 mb-4">
-                <MapPin className="w-6 h-6 text-[#8b9e7d]" />
+                <MapPin className="w-6 h-6 text-red-500" />
                 <h2 className="text-2xl font-bold text-gray-800">
                   Peta Lalu Lintas
                 </h2>
@@ -101,7 +101,7 @@ export default function SmartMobilityPage() {
               />
 
               <div className="flex items-start gap-2 text-sm text-gray-800 mt-3 mb-6">
-                <Info className="w-5 h-5 text-[#8b9e7d] shrink-0 mt-0.5" />
+                <Info className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                 <p>
                   Klik pada marker jalan di peta untuk melihat detail kondisi
                   lalu lintasnya
@@ -109,7 +109,7 @@ export default function SmartMobilityPage() {
               </div>
 
               {/* Road Detail Card */}
-              <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
+              <div className="bg-white/95 rounded-xl shadow-sm border border-red-100 p-8">
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-3xl font-bold text-gray-800">
                     {selectedRoad.roadName}
@@ -152,8 +152,8 @@ export default function SmartMobilityPage() {
                 </div>
 
                 {/* Traffic Metrics */}
-                <div className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-gray-200">
-                  <div className="bg-linear-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                <div className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-red-200">
+                  <div className="bg-linear-to-br from-red-50 to-white p-4 rounded-lg border border-red-100">
                     <p className="text-sm text-gray-800 mb-1">
                       Kecepatan Rata-rata
                     </p>
@@ -172,34 +172,34 @@ export default function SmartMobilityPage() {
                 </div>
 
                 {/* Recommendations */}
-                <div className="p-6 bg-blue-50 rounded-lg border border-blue-100">
+                <div className="p-6 bg-red-50 rounded-lg border border-red-200">
                   <div className="flex items-start gap-3">
-                    <Info className="w-6 h-6 text-blue-600 shrink-0 mt-0.5" />
+                    <Info className="w-6 h-6 text-red-500 shrink-0 mt-0.5" />
                     <div>
-                      <h3 className="font-bold text-blue-900 mb-2">
+                      <h3 className="font-bold text-gray-900 mb-2">
                         Rekomendasi Perjalanan
                       </h3>
                       {selectedRoad.congestionLevel === "Lancar" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Jalan dalam kondisi lancar. Waktu tempuh optimal. Anda
                           dapat melakukan perjalanan sesuai rencana.
                         </p>
                       )}
                       {selectedRoad.congestionLevel === "Normal" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Jalan dalam kondisi normal dengan sedikit kemacetan.
                           Bersiaplah untuk perjalanan sedikit lebih lama dari
                           biasanya.
                         </p>
                       )}
                       {selectedRoad.congestionLevel === "Padat" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Jalan sedang padat. Pertimbangkan untuk menggunakan
                           rute alternatif atau menunggu waktu yang lebih baik.
                         </p>
                       )}
                       {selectedRoad.congestionLevel === "Macet" && (
-                        <p className="text-blue-800">
+                        <p className="text-gray-700">
                           Jalan sedang macet. Sangat disarankan untuk
                           menggunakan transportasi alternatif atau menunggu
                           kemacetan mereda.
@@ -212,7 +212,7 @@ export default function SmartMobilityPage() {
             </div>
 
             {/* Roads List */}
-            <div className="bg-white rounded-lg shadow-lg p-6 h-fit">
+            <div className="bg-white/95 rounded-lg shadow-lg p-6 h-fit border border-red-100">
               <h3 className="text-xl font-bold mb-4 text-gray-800">
                 Jalan-Jalan Utama
               </h3>
@@ -223,11 +223,19 @@ export default function SmartMobilityPage() {
                     onClick={() => setSelectedRoad(road)}
                     className={`w-full p-4 rounded-lg text-left transition-all border-l-4 ${
                       selectedRoad.id === road.id
-                        ? "bg-[#8b9e7d] text-white border-[#6b7a5e]"
-                        : "bg-gray-50 border-transparent hover:bg-gray-100"
+                        ? "bg-red-500 text-white border-red-600"
+                        : "bg-white text-gray-900 border-gray-200 hover:bg-gray-50 hover:border-gray-300"
                     }`}
                   >
-                    <div className="font-semibold">{road.roadName}</div>
+                    <div
+                      className={`font-semibold ${
+                        selectedRoad.id === road.id
+                          ? "text-white"
+                          : "text-gray-900"
+                      }`}
+                    >
+                      {road.roadName}
+                    </div>
                     <div className="flex justify-between items-center mt-2">
                       <span
                         className={`text-xs font-semibold ${
@@ -242,7 +250,7 @@ export default function SmartMobilityPage() {
                         className={`text-xs ${
                           selectedRoad.id === road.id
                             ? "text-white/90"
-                            : "text-gray-800"
+                            : "text-gray-700"
                         }`}
                       >
                         {road.averageSpeed} km/h
@@ -290,7 +298,7 @@ export default function SmartMobilityPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="w-full mt-4 bg-[#8b9e7d] hover:bg-[#6b7a5e] text-white font-semibold py-2 rounded-lg transition-colors">
+                  <button className="w-full mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
                     Pesan
                   </button>
                 </div>
@@ -301,34 +309,34 @@ export default function SmartMobilityPage() {
       </section>
 
       {/* Traffic Status Legend */}
-      <section className="bg-white py-12 border-t border-gray-100">
+      <section className="bg-red-50 py-12 border-t border-red-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 text-gray-800">
             Keterangan Status Lalu Lintas
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white rounded-lg p-6 border border-green-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-green-200">
               <div className="w-full h-2 bg-green-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-green-600 mb-2">Lancar</h4>
               <p className="text-sm text-gray-800">
                 Tidak ada hambatan, lalu lintas berjalan normal
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 border border-blue-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-gray-200">
               <div className="w-full h-2 bg-blue-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-blue-600 mb-2">Normal</h4>
               <p className="text-sm text-gray-800">
                 Sedikit hambatan tapi masih lancar
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 border border-orange-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-orange-200">
               <div className="w-full h-2 bg-orange-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-orange-600 mb-2">Padat</h4>
               <p className="text-sm text-gray-800">
                 Banyak kendaraan, lalu lintas melambat
               </p>
             </div>
-            <div className="bg-white rounded-lg p-6 border border-red-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-red-200">
               <div className="w-full h-2 bg-red-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-red-600 mb-2">Macet</h4>
               <p className="text-sm text-gray-800">
@@ -340,14 +348,14 @@ export default function SmartMobilityPage() {
       </section>
 
       {/* Tips Section */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-red-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold mb-8 text-gray-800">
             Tips Berkendara Aman
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
-              <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
+            <div className="p-6 bg-white/95 rounded-lg shadow border border-red-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-red-300 hover:bg-white">
+              <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
                 <Clock className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">
@@ -358,8 +366,8 @@ export default function SmartMobilityPage() {
                 keberangkatan terbaik
               </p>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
-              <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
+            <div className="p-6 bg-white/95 rounded-lg shadow border border-red-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-red-300 hover:bg-white">
+              <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
                 <Map className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">
@@ -370,8 +378,8 @@ export default function SmartMobilityPage() {
                 menghemat waktu
               </p>
             </div>
-            <div className="p-6 bg-white rounded-lg shadow border border-gray-100">
-              <div className="w-12 h-12 bg-[#8b9e7d] rounded-lg flex items-center justify-center mb-4">
+            <div className="p-6 bg-white/95 rounded-lg shadow border border-red-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-red-300 hover:bg-white">
+              <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
                 <Users className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-3 text-gray-800">

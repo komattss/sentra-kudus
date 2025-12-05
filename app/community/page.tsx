@@ -1,17 +1,28 @@
+"use client";
+
 import { communityServices } from "@/data/communityServices";
 import Rating from "@/components/Rating";
-import Badge from "@/components/Badge";
 import { Users, MapPin, Phone, Mail, Search, CheckCircle } from "lucide-react";
+import { useState } from "react";
 
 export default function CommunityPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
+
   const categories = [
     ...new Set(communityServices.map((service) => service.category)),
   ];
 
+  const filteredServices =
+    selectedCategory === "Semua"
+      ? communityServices
+      : communityServices.filter(
+          (service) => service.category === selectedCategory
+        );
+
   return (
-    <main className="min-h-screen pt-20 pb-12">
+    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-purple-50 via-white to-purple-100">
       {/* Hero */}
-      <section className="bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] text-white py-16">
+      <section className="bg-linear-to-br from-purple-500 to-purple-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
@@ -29,31 +40,50 @@ export default function CommunityPage() {
       </section>
 
       {/* Categories Filter */}
-      <section className="bg-white py-8">
+      <section className="bg-purple-50/90 py-8 border-b border-purple-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-lg font-bold mb-4 text-gray-800">
+          <h2 className="text-lg font-bold mb-4 text-gray-900">
             Kategori Layanan
           </h2>
           <div className="flex flex-wrap gap-3">
-            <Badge text="Semua" color="blue" size="md" />
+            <button
+              onClick={() => setSelectedCategory("Semua")}
+              className={`px-4 py-2 rounded-full font-medium transition-all border shadow-sm ${
+                selectedCategory === "Semua"
+                  ? "bg-purple-500 text-white border-purple-600"
+                  : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
+              }`}
+            >
+              Semua
+            </button>
             {categories.map((category) => (
-              <Badge key={category} text={category} color="blue" size="md" />
+              <button
+                key={category}
+                onClick={() => setSelectedCategory(category)}
+                className={`px-4 py-2 rounded-full font-medium transition-all border shadow-sm ${
+                  selectedCategory === category
+                    ? "bg-purple-500 text-white border-purple-600"
+                    : "bg-white text-gray-900 border-gray-300 hover:bg-gray-50 hover:border-gray-400"
+                }`}
+              >
+                {category}
+              </button>
             ))}
           </div>
         </div>
       </section>
 
       {/* Services Grid */}
-      <section className="bg-gray-50 py-12">
+      <section className="bg-purple-50 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {communityServices.map((service) => (
+            {filteredServices.map((service) => (
               <div
                 key={service.id}
-                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all overflow-hidden border border-gray-100 hover:border-[#8b9e7d]"
+                className="group bg-white/95 rounded-xl shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden border border-purple-100 hover:border-purple-300 hover:scale-[1.02]"
               >
                 {/* Header */}
-                <div className="bg-linear-to-br from-[#8b9e7d] to-[#6b7a5e] p-6 text-white">
+                <div className="bg-linear-to-br from-purple-500 to-purple-600 p-6 text-white">
                   <h3 className="text-xl font-bold mb-2">{service.name}</h3>
                   <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm">
                     {service.category}
@@ -62,26 +92,26 @@ export default function CommunityPage() {
 
                 {/* Content */}
                 <div className="p-6">
-                  <p className="text-gray-600 mb-4 line-clamp-2">
+                  <p className="text-gray-700 mb-4 line-clamp-2">
                     {service.description}
                   </p>
 
                   {/* Location */}
                   <div className="mb-4 pb-4 border-b border-gray-100">
-                    <div className="flex items-start gap-2 text-sm text-gray-600">
-                      <MapPin className="w-5 h-5 text-[#8b9e7d] mt-0.5 shrink-0" />
+                    <div className="flex items-start gap-2 text-sm text-gray-700">
+                      <MapPin className="w-5 h-5 text-purple-500 mt-0.5 shrink-0" />
                       <span>{service.location}</span>
                     </div>
                   </div>
 
                   {/* Contact */}
                   <div className="space-y-2 mb-4 text-sm">
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Phone className="w-4 h-4 text-[#8b9e7d]" />
+                    <div className="flex items-center gap-2 text-gray-700">
+                      <Phone className="w-4 h-4 text-purple-500" />
                       <span>{service.phone}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Mail className="w-4 h-4 text-[#8b9e7d]" />
+                    <div className="flex itemscenter gap-2 text-gray-700">
+                      <Mail className="w-4 h-4 text-purple-500" />
                       <span>{service.email}</span>
                     </div>
                   </div>
@@ -92,7 +122,7 @@ export default function CommunityPage() {
                   </div>
 
                   {/* CTA */}
-                  <button className="w-full mt-4 bg-[#8b9e7d] hover:bg-[#6b7a5e] text-white font-medium py-2.5 px-4 rounded-lg transition-colors">
+                  <button className="w-full mt-4 bg-purple-500 hover:bg-purple-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
                     Selengkapnya →
                   </button>
                 </div>
@@ -103,37 +133,39 @@ export default function CommunityPage() {
       </section>
 
       {/* Info Section */}
-      <section className="bg-white py-16 border-t border-gray-100">
+      <section className="bg-purple-50 py-16 border-t border-purple-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#8b9e7d]/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Search className="w-8 h-8 text-[#8b9e7d]" />
+            <div className="group p-6 bg-white/95 rounded-lg shadow border border-purple-100 hover:shadow-xl hover:border-purple-300 transition-all duration-300 hover:scale-105">
+              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <Search className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-bold mb-2 text-gray-800">
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
                 Mudah Diakses
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Cari dan temukan layanan yang Anda butuhkan dengan mudah
               </p>
             </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-[#8b9e7d]/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-[#8b9e7d]" />
+            <div className="group p-6 bg-white/95 rounded-lg shadow border border-purple-100 hover:shadow-xl hover:border-purple-300 transition-all duration-300 hover:scale-105">
+              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <CheckCircle className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-bold mb-2 text-gray-800">
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
                 Terverifikasi
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-800">
                 Semua layanan telah diverifikasi oleh pemerintah lokal
               </p>
             </div>
-            <div className="text-center">
-              <div className="text-4xl mb-4">⭐</div>
-              <h3 className="text-lg font-bold mb-2 text-gray-800 dark:text-white">
+            <div className="group p-6 bg-white/95 rounded-lg shadow border border-purple-100 hover:shadow-xl hover:border-purple-300 transition-all duration-300 hover:scale-105">
+              <div className="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <span className="text-2xl">⭐</span>
+              </div>
+              <h3 className="text-xl font-bold mb-3 text-gray-800">
                 Berdasarkan Review
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-800">
                 Rating dari pengguna nyata yang telah mencoba layanan
               </p>
             </div>
