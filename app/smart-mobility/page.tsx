@@ -3,12 +3,23 @@
 import {
   trafficData,
   transportOptions,
+  trafficIncidents,
   getCongestionColor,
 } from "@/data/traffic";
 import { useState } from "react";
 import Badge from "@/components/Badge";
 import MapContainer from "@/components/MapContainer";
-import { Zap, MapPin, Info, Clock, Map, Users } from "lucide-react";
+import {
+  Zap,
+  MapPin,
+  Info,
+  Clock,
+  Map,
+  Users,
+  AlertTriangle,
+  Construction,
+  AlertCircle,
+} from "lucide-react";
 
 export default function SmartMobilityPage() {
   const [selectedRoad, setSelectedRoad] = useState(trafficData[0]);
@@ -58,7 +69,7 @@ export default function SmartMobilityPage() {
   }));
 
   return (
-    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-red-50 via-white to-red-100">
+    <main className="min-h-screen pt-18 pb-12 bg-linear-to-b from-red-50 via-white to-red-100">
       {/* Hero */}
       <section className="bg-linear-to-br from-red-500 to-red-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -98,8 +109,11 @@ export default function SmartMobilityPage() {
                   if (road) setSelectedRoad(road);
                 }}
                 height="h-96"
+                controlColor="#ef4444"
+                controlHoverColor="#dc2626"
+                controlZIndex={30}
+                controlOffset={{ top: 80, left: 12 }}
               />
-
               <div className="flex items-start gap-2 text-sm text-gray-800 mt-3 mb-6">
                 <Info className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
                 <p>
@@ -153,7 +167,17 @@ export default function SmartMobilityPage() {
 
                 {/* Traffic Metrics */}
                 <div className="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-red-200">
-                  <div className="bg-linear-to-br from-red-50 to-white p-4 rounded-lg border border-red-100">
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      selectedRoad.congestionLevel === "Lancar"
+                        ? "bg-linear-to-br from-green-50 to-green-100 border-green-200"
+                        : selectedRoad.congestionLevel === "Normal"
+                        ? "bg-linear-to-br from-blue-50 to-blue-100 border-blue-200"
+                        : selectedRoad.congestionLevel === "Padat"
+                        ? "bg-linear-to-br from-orange-50 to-orange-100 border-orange-200"
+                        : "bg-linear-to-br from-red-50 to-red-100 border-red-200"
+                    }`}
+                  >
                     <p className="text-sm text-gray-800 mb-1">
                       Kecepatan Rata-rata
                     </p>
@@ -161,7 +185,17 @@ export default function SmartMobilityPage() {
                       {selectedRoad.averageSpeed} km/h
                     </p>
                   </div>
-                  <div className="bg-linear-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                  <div
+                    className={`p-4 rounded-lg border ${
+                      selectedRoad.congestionLevel === "Lancar"
+                        ? "bg-linear-to-br from-green-50 to-green-100 border-green-200"
+                        : selectedRoad.congestionLevel === "Normal"
+                        ? "bg-linear-to-br from-blue-50 to-blue-100 border-blue-200"
+                        : selectedRoad.congestionLevel === "Padat"
+                        ? "bg-linear-to-br from-orange-50 to-orange-100 border-orange-200"
+                        : "bg-linear-to-br from-red-50 to-red-100 border-red-200"
+                    }`}
+                  >
                     <p className="text-sm text-gray-800 mb-1">
                       Kepadatan Lalu Lintas
                     </p>
@@ -212,55 +246,187 @@ export default function SmartMobilityPage() {
             </div>
 
             {/* Roads List */}
-            <div className="bg-white/95 rounded-lg shadow-lg p-6 h-fit border border-red-100">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">
-                Jalan-Jalan Utama
-              </h3>
-              <div className="space-y-3">
-                {trafficData.map((road) => (
-                  <button
-                    key={road.id}
-                    onClick={() => setSelectedRoad(road)}
-                    className={`w-full p-4 rounded-lg text-left transition-all border-l-4 ${
-                      selectedRoad.id === road.id
-                        ? "bg-red-500 text-white border-red-600"
-                        : "bg-white text-gray-900 border-gray-200 hover:bg-gray-50 hover:border-gray-300"
-                    }`}
-                  >
-                    <div
-                      className={`font-semibold ${
-                        selectedRoad.id === road.id
+            <div
+              className="bg-white/95 rounded-lg shadow-lg border border-red-100 flex flex-col"
+              style={{ height: "983px" }}
+            >
+              <div className="p-6 pb-3 border-b border-red-100">
+                <h3 className="text-xl font-bold text-gray-800">
+                  Jalan-Jalan Utama
+                </h3>
+              </div>
+              <div className="flex-1 overflow-y-auto p-6 pt-3 space-y-3">
+                {trafficData.map((road) => {
+                  const isSelected = selectedRoad.id === road.id;
+                  const getBgColor = (level: string) => {
+                    if (!isSelected) return "bg-white";
+                    switch (level) {
+                      case "Lancar":
+                        return "bg-green-500";
+                      case "Normal":
+                        return "bg-blue-500";
+                      case "Padat":
+                        return "bg-orange-500";
+                      case "Macet":
+                        return "bg-red-500";
+                      default:
+                        return "bg-gray-500";
+                    }
+                  };
+                  const getBorderColor = (level: string) => {
+                    if (!isSelected) return "border-gray-200";
+                    switch (level) {
+                      case "Lancar":
+                        return "border-green-600";
+                      case "Normal":
+                        return "border-blue-600";
+                      case "Padat":
+                        return "border-orange-600";
+                      case "Macet":
+                        return "border-red-600";
+                      default:
+                        return "border-gray-600";
+                    }
+                  };
+
+                  return (
+                    <button
+                      key={road.id}
+                      onClick={() => setSelectedRoad(road)}
+                      className={`w-full p-4 rounded-lg text-left transition-all border-l-4 ${getBgColor(
+                        road.congestionLevel
+                      )} ${getBorderColor(road.congestionLevel)} ${
+                        isSelected
                           ? "text-white"
-                          : "text-gray-900"
+                          : "text-gray-900 hover:bg-gray-50 hover:border-gray-300"
                       }`}
                     >
-                      {road.roadName}
-                    </div>
-                    <div className="flex justify-between items-center mt-2">
-                      <span
-                        className={`text-xs font-semibold ${
-                          selectedRoad.id === road.id
-                            ? "text-white"
-                            : getCongestionColor(road.congestionLevel)
+                      <div
+                        className={`font-semibold ${
+                          isSelected ? "text-white" : "text-gray-900"
                         }`}
                       >
-                        {road.congestionLevel}
-                      </span>
-                      <span
-                        className={`text-xs ${
-                          selectedRoad.id === road.id
-                            ? "text-white/90"
-                            : "text-gray-700"
-                        }`}
-                      >
-                        {road.averageSpeed} km/h
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                        {road.roadName}
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <span
+                          className={`text-xs font-semibold ${
+                            isSelected
+                              ? "text-white"
+                              : getCongestionColor(road.congestionLevel)
+                          }`}
+                        >
+                          {road.congestionLevel}
+                        </span>
+                        <span
+                          className={`text-xs ${
+                            isSelected ? "text-white/90" : "text-gray-700"
+                          }`}
+                        >
+                          {road.averageSpeed} km/h
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
+
+          {/* Traffic Incidents & Alerts */}
+          <section className="mt-6">
+            <div
+              className="bg-white/95 rounded-lg shadow-lg border border-red-100 flex flex-col"
+              style={{ maxHeight: "400px" }}
+            >
+              <div className="p-6 pb-3 border-b border-red-100">
+                <div className="flex items-center gap-3">
+                  <AlertTriangle className="w-6 h-6 text-red-500" />
+                  <h3 className="text-xl font-bold text-gray-800">
+                    Peringatan Lalu Lintas
+                  </h3>
+                </div>
+              </div>
+              <div className="flex-1 overflow-y-auto p-6 pt-3 space-y-3">
+                {trafficIncidents.map((incident) => {
+                  const getSeverityColor = (severity: string) => {
+                    switch (severity) {
+                      case "Tinggi":
+                        return "bg-red-50 border-red-300 text-red-800";
+                      case "Sedang":
+                        return "bg-orange-50 border-orange-300 text-orange-800";
+                      case "Rendah":
+                        return "bg-yellow-50 border-yellow-300 text-yellow-800";
+                      default:
+                        return "bg-gray-50 border-gray-300 text-gray-800";
+                    }
+                  };
+
+                  const getIcon = (type: string) => {
+                    switch (type) {
+                      case "Kecelakaan":
+                        return <AlertCircle className="w-5 h-5" />;
+                      case "Perbaikan Jalan":
+                        return <Construction className="w-5 h-5" />;
+                      default:
+                        return <Info className="w-5 h-5" />;
+                    }
+                  };
+
+                  return (
+                    <div
+                      key={incident.id}
+                      className={`p-4 rounded-lg border-l-4 ${getSeverityColor(
+                        incident.severity
+                      )} transition-all duration-200 hover:shadow-md`}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="shrink-0 mt-0.5">
+                          {getIcon(incident.type)}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between mb-1">
+                            <h4 className="font-bold text-sm">
+                              {incident.type}
+                            </h4>
+                            <Badge
+                              text={incident.severity}
+                              color={
+                                incident.severity === "Tinggi"
+                                  ? "red"
+                                  : incident.severity === "Sedang"
+                                  ? "yellow"
+                                  : "green"
+                              }
+                              size="sm"
+                            />
+                          </div>
+                          <p className="font-semibold text-xs mb-1">
+                            📍 {incident.location}
+                          </p>
+                          <p className="text-xs mb-2">{incident.description}</p>
+                          <div className="flex items-center gap-4 text-xs">
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {new Date(incident.timestamp).toLocaleTimeString(
+                                "id-ID",
+                                { hour: "2-digit", minute: "2-digit" }
+                              )}
+                            </span>
+                            {incident.estimatedClearance && (
+                              <span className="font-semibold">
+                                Estimasi: {incident.estimatedClearance}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </section>
 
           {/* Transport Options */}
           <section className="mt-12">
@@ -273,7 +439,7 @@ export default function SmartMobilityPage() {
                   key={transport.id}
                   className={`${getTransportBgColor(
                     transport.type
-                  )} border rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer`}
+                  )} border rounded-lg p-6 transition-all duration-200 cursor-pointer hover:shadow-md hover:scale-[1.02]`}
                 >
                   <p className="text-sm font-semibold text-gray-800 mb-2">
                     {transport.type}
@@ -298,7 +464,7 @@ export default function SmartMobilityPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="w-full mt-4 bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+                  <button className="w-full mt-4 bg-red-500 text-white font-semibold py-2 rounded-lg transition-all duration-200 hover:bg-red-600 hover:shadow-md hover:scale-[1.02] hover:-translate-y-0.5">
                     Pesan
                   </button>
                 </div>
@@ -315,28 +481,28 @@ export default function SmartMobilityPage() {
             Keterangan Status Lalu Lintas
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-white/95 rounded-lg p-6 border border-green-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-green-200 transition-all duration-200 hover:shadow-md hover:scale-[1.02] hover:-translate-y-1 cursor-pointer">
               <div className="w-full h-2 bg-green-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-green-600 mb-2">Lancar</h4>
               <p className="text-sm text-gray-800">
                 Tidak ada hambatan, lalu lintas berjalan normal
               </p>
             </div>
-            <div className="bg-white/95 rounded-lg p-6 border border-gray-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-gray-200 transition-all duration-200 hover:shadow-md hover:scale-[1.02] hover:-translate-y-1 cursor-pointer">
               <div className="w-full h-2 bg-blue-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-blue-600 mb-2">Normal</h4>
               <p className="text-sm text-gray-800">
                 Sedikit hambatan tapi masih lancar
               </p>
             </div>
-            <div className="bg-white/95 rounded-lg p-6 border border-orange-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-orange-200 transition-all duration-200 hover:shadow-md hover:scale-[1.02] hover:-translate-y-1 cursor-pointer">
               <div className="w-full h-2 bg-orange-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-orange-600 mb-2">Padat</h4>
               <p className="text-sm text-gray-800">
                 Banyak kendaraan, lalu lintas melambat
               </p>
             </div>
-            <div className="bg-white/95 rounded-lg p-6 border border-red-200">
+            <div className="bg-white/95 rounded-lg p-6 border border-red-200 transition-all duration-200 hover:shadow-md hover:scale-[1.02] hover:-translate-y-1 cursor-pointer">
               <div className="w-full h-2 bg-red-500 rounded-full mb-4"></div>
               <h4 className="font-bold text-red-600 mb-2">Macet</h4>
               <p className="text-sm text-gray-800">

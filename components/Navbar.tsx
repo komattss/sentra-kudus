@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import Button from "./ui/button";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +31,7 @@ export default function Navbar() {
                 className="object-contain"
               />
             </div>
-            <span className="text-lg font-bold text-black hidden sm:inline">
+            <span className="text-lg font-bold text-black hidden sm:inline transition-all duration-300 group-hover:scale-105 group-hover:text-sage-600">
               SENTRAKUDUS
             </span>
           </Link>
@@ -43,14 +42,11 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-5 py-2.5 text-gray-700 hover:text-sage-600 hover:bg-sage-100 rounded-xl transition-all font-semibold text-sm"
+                className="px-5 py-2.5 text-gray-700 hover:text-sage-600 hover:bg-sage-100 rounded-xl transition-all font-semibold text-sm hover:scale-102 hover:-translate-y-0.5"
               >
                 {link.label}
               </Link>
             ))}
-            <Button variant="outline" size="sm">
-              Masuk
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}

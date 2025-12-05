@@ -1,3 +1,14 @@
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+/**
+ * Utility function untuk merge Tailwind CSS classes
+ * Digunakan oleh shadcn/ui components
+ */
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
 /**
  * Utility functions untuk Sentrakudus Superapp
  */

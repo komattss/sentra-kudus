@@ -43,7 +43,7 @@ export default function AirMonitoringPage() {
   }));
 
   return (
-    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-green-50 via-white to-green-100">
+    <main className="min-h-screen pt-18 pb-12 bg-linear-to-b from-green-50 via-white to-green-100">
       {/* Hero */}
       <section className="bg-linear-to-br from-green-500 to-green-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,6 +81,10 @@ export default function AirMonitoringPage() {
                 if (station) setSelectedStation(station);
               }}
               height="h-96"
+              controlColor="#22c55e"
+              controlHoverColor="#16a34a"
+              controlZIndex={30}
+              controlOffset={{ top: 80, left: 12 }}
             />
 
             <div className="flex items-start gap-2 mt-3 text-sm text-gray-600">

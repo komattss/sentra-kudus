@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { CSSProperties } from "react";
 
 export interface MapMarker {
   id: string;
@@ -19,6 +20,10 @@ interface MapContainerProps {
   zoom?: number;
   onMarkerClick?: (marker: MapMarker) => void;
   height?: string;
+  controlColor?: string;
+  controlHoverColor?: string;
+  controlZIndex?: number;
+  controlOffset?: { top?: number; left?: number };
 }
 
 const LeafletMap = dynamic(() => import("@/components/LeafletMap"), {
@@ -36,9 +41,28 @@ export default function MapContainer({
   zoom = 14,
   onMarkerClick,
   height = "h-96",
+  controlColor,
+  controlHoverColor,
+  controlZIndex,
+  controlOffset,
 }: MapContainerProps) {
+  const controlVars: CSSProperties = {
+    ["--leaflet-control-color" as string]: controlColor,
+    ["--leaflet-control-hover" as string]: controlHoverColor || controlColor,
+    ["--leaflet-control-z" as string]: controlZIndex?.toString(),
+    ["--leaflet-control-top" as string]: controlOffset?.top
+      ? `${controlOffset.top}px`
+      : undefined,
+    ["--leaflet-control-left" as string]: controlOffset?.left
+      ? `${controlOffset.left}px`
+      : undefined,
+  };
+
   return (
-    <div className={`w-full ${height} rounded-lg overflow-hidden shadow-lg`}>
+    <div
+      className={`map-container w-full ${height} rounded-lg overflow-hidden shadow-lg`}
+      style={controlVars}
+    >
       <LeafletMap
         markers={markers}
         center={center}

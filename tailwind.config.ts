@@ -15,8 +15,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: "var(--primary)",
-        "primary-dark": "var(--primary-dark)",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        border: "hsl(var(--border))",
+        primary: "hsl(var(--primary))",
+        "primary-dark": "hsl(var(--primary-dark))",
         sage: {
           50: "#f6f7f5",
           100: "#e8ebe6",

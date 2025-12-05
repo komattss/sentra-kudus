@@ -20,6 +20,16 @@ export interface TransportOption {
   waitingTime: number; // dalam menit
 }
 
+export interface TrafficIncident {
+  id: string;
+  type: "Kecelakaan" | "Perbaikan Jalan" | "Banjir" | "Event";
+  location: string;
+  description: string;
+  severity: "Rendah" | "Sedang" | "Tinggi";
+  timestamp: Date;
+  estimatedClearance?: string;
+}
+
 export const trafficData: TrafficData[] = [
   {
     id: "jalan-001",
@@ -80,6 +90,136 @@ export const trafficData: TrafficData[] = [
     averageSpeed: 55,
     density: 20,
     timestamp: new Date(),
+  },
+  {
+    id: "jalan-007",
+    roadName: "Jl. Dr. Lukmono Hadi",
+    latitude: -6.8173,
+    longitude: 110.8375,
+    congestionLevel: "Normal",
+    averageSpeed: 38,
+    density: 42,
+    timestamp: new Date(),
+  },
+  {
+    id: "jalan-008",
+    roadName: "Jl. Jend. Ahmad Yani",
+    latitude: -6.8149,
+    longitude: 110.8385,
+    congestionLevel: "Lancar",
+    averageSpeed: 48,
+    density: 30,
+    timestamp: new Date(),
+  },
+  {
+    id: "jalan-009",
+    roadName: "Jl. Mayor Basuno",
+    latitude: -6.8159,
+    longitude: 110.8358,
+    congestionLevel: "Padat",
+    averageSpeed: 25,
+    density: 68,
+    timestamp: new Date(),
+  },
+  {
+    id: "jalan-010",
+    roadName: "Jl. KH Agus Salim",
+    latitude: -6.8159,
+    longitude: 110.8358,
+    congestionLevel: "Normal",
+    averageSpeed: 35,
+    density: 48,
+    timestamp: new Date(),
+  },
+  {
+    id: "jalan-011",
+    roadName: "Jl. Kyai Haji Wahid Hasyim",
+    latitude: -6.8149,
+    longitude: 110.8385,
+    congestionLevel: "Lancar",
+    averageSpeed: 45,
+    density: 28,
+    timestamp: new Date(),
+  },
+  {
+    id: "jalan-012",
+    roadName: "Jl. Johar",
+    latitude: -6.8145,
+    longitude: 110.8395,
+    congestionLevel: "Normal",
+    averageSpeed: 40,
+    density: 45,
+    timestamp: new Date(),
+  },
+  {
+    id: "jalan-013",
+    roadName: "Jl. Mangga",
+    latitude: -6.8155,
+    longitude: 110.8368,
+    congestionLevel: "Lancar",
+    averageSpeed: 50,
+    density: 25,
+    timestamp: new Date(),
+  },
+  {
+    id: "jalan-014",
+    roadName: "Jl. Nuri",
+    latitude: -6.8162,
+    longitude: 110.8378,
+    congestionLevel: "Normal",
+    averageSpeed: 42,
+    density: 38,
+    timestamp: new Date(),
+  },
+];
+
+export const trafficIncidents: TrafficIncident[] = [
+  {
+    id: "inc-001",
+    type: "Kecelakaan",
+    location: "Jl. Getas Pejaten",
+    description:
+      "Kecelakaan ringan melibatkan 2 kendaraan di dekat simpang tiga",
+    severity: "Sedang",
+    timestamp: new Date(Date.now() - 30 * 60000), // 30 menit yang lalu
+    estimatedClearance: "1 jam",
+  },
+  {
+    id: "inc-002",
+    type: "Perbaikan Jalan",
+    location: "Jl. Kudus - Jepara (Ploso)",
+    description: "Perbaikan jalan berlubang, lajur dikurangi menjadi 1",
+    severity: "Tinggi",
+    timestamp: new Date(Date.now() - 2 * 60 * 60000), // 2 jam yang lalu
+    estimatedClearance: "3 hari",
+  },
+  {
+    id: "inc-003",
+    type: "Event",
+    location: "Jl. Sunan Kudus (Pusat Kota)",
+    description: "Acara pasar malam, jalan ditutup sebagian",
+    severity: "Rendah",
+    timestamp: new Date(Date.now() - 60 * 60000), // 1 jam yang lalu
+    estimatedClearance: "Hingga pukul 22:00",
+  },
+  {
+    id: "inc-004",
+    type: "Kecelakaan",
+    location: "Jl. Dr. Lukmono Hadi",
+    description:
+      "Kecelakaan tunggal motor terpeleset, penanganan sudah dilakukan",
+    severity: "Rendah",
+    timestamp: new Date(Date.now() - 45 * 60000), // 45 menit yang lalu
+    estimatedClearance: "30 menit",
+  },
+  {
+    id: "inc-005",
+    type: "Perbaikan Jalan",
+    location: "Jl. Wergu Wetan Raya",
+    description: "Pemeliharaan drainase jalan, satu lajur ditutup sementara",
+    severity: "Sedang",
+    timestamp: new Date(Date.now() - 3 * 60 * 60000), // 3 jam yang lalu
+    estimatedClearance: "2 hari",
   },
 ];
 

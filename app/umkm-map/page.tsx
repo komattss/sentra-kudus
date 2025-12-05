@@ -36,7 +36,7 @@ export default function UMKMMapPage() {
   }));
 
   return (
-    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-orange-50 via-white to-orange-100">
+    <main className="min-h-screen pt-18 pb-12 bg-linear-to-b from-orange-50 via-white to-orange-100">
       {/* Hero */}
       <section className="bg-linear-to-br from-orange-500 to-orange-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,8 +104,11 @@ export default function UMKMMapPage() {
                   if (umkm) setSelectedUMKM(umkm);
                 }}
                 height="h-[500px]"
+                controlColor="#f97316"
+                controlHoverColor="#ea580c"
+                controlZIndex={30}
+                controlOffset={{ top: 80, left: 12 }}
               />
-
               <div className="flex items-start gap-2 text-sm text-gray-700 mt-3 mb-6">
                 <Info className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
                 <p>
@@ -219,12 +222,12 @@ export default function UMKMMapPage() {
               <h3 className="text-xl font-bold mb-4 text-gray-800">
                 Daftar UMKM
               </h3>
-              <div className="space-y-3 max-h-[600px] overflow-y-auto">
+              <div className="space-y-3 max-h-[966px] overflow-y-auto">
                 {filteredUMKM.map((umkm) => (
                   <button
                     key={umkm.id}
                     onClick={() => setSelectedUMKM(umkm)}
-                    className={`w-full p-4 rounded-lg text-left transition-all border-l-4 ${
+                    className={`w-full h-[130px] p-4 rounded-lg text-left transition-all border-l-4 flex flex-col justify-between ${
                       selectedUMKM.id === umkm.id
                         ? "bg-orange-500 text-white border-orange-600"
                         : "bg-white text-gray-900 border-gray-200 hover:bg-gray-50 hover:border-gray-300"

@@ -20,7 +20,7 @@ export default function CommunityPage() {
         );
 
   return (
-    <main className="min-h-screen pt-20 pb-12 bg-linear-to-b from-purple-50 via-white to-purple-100">
+    <main className="min-h-screen pt-18 pb-12 bg-linear-to-b from-purple-50 via-white to-purple-100">
       {/* Hero */}
       <section className="bg-linear-to-br from-purple-500 to-purple-600 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

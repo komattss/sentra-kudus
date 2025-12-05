@@ -17,7 +17,7 @@ import {
 
 export default function Home() {
   return (
-    <main className="min-h-screen pt-20 pb-12 bg-white">
+    <main className="min-h-screen pt-18 pb-12 bg-white">
       {/* Hero Section with Background Image */}
       <section className="relative text-white py-32 overflow-hidden">
         {/* Background Image with Overlay */}

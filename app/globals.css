@@ -1,6 +1,72 @@
-@import "tailwindcss";
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}
 
 :root {
   --background: #f3f6f1;
@@ -16,6 +82,11 @@
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
+  --leaflet-control-color: var(--sage-green);
+  --leaflet-control-hover: var(--sage-dark);
+  --leaflet-control-z: 20;
+  --leaflet-control-top: 12px;
+  --leaflet-control-left: 12px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -68,21 +139,40 @@ body {
   background: #555;
 }
 
-/* Leaflet Map Controls - Fix z-index and styling */
-.leaflet-control-container {
-  z-index: 800 !important;
+/* Custom scrollbar for roads list */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
 }
 
-.leaflet-control-zoom,
-.leaflet-control-attribution {
-  z-index: 800 !important;
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
 }
 
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #fca5a5;
+  border-radius: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #ef4444;
+}
+
+/* Leaflet Map Controls - Fix z-index and styling (scoped per map) */
+.map-container .leaflet-control-container {
+  z-index: var(--leaflet-control-z, 20) !important;
+}
+
+.map-container .leaflet-control-zoom,
+.map-container .leaflet-control-attribution {
+  z-index: var(--leaflet-control-z, 20) !important;
+}
+
+.map-container .leaflet-control-zoom-in,
+.map-container .leaflet-control-zoom-out {
   background: white !important;
-  color: var(--sage-green) !important;
-  border: 2px solid var(--sage-green) !important;
+  color: var(--leaflet-control-color, var(--sage-green)) !important;
+  border: 2px solid var(--leaflet-control-color, var(--sage-green)) !important;
   font-size: 18px !important;
   font-weight: bold !important;
   width: 34px !important;
@@ -93,14 +183,17 @@ body {
   transition: all 0.2s ease !important;
 }
 
-.leaflet-control-zoom-in:hover,
-.leaflet-control-zoom-out:hover {
-  background: var(--sage-green) !important;
+.map-container .leaflet-control-zoom-in:hover,
+.map-container .leaflet-control-zoom-out:hover {
+  background: var(
+    --leaflet-control-hover,
+    var(--leaflet-control-color, var(--sage-green))
+  ) !important;
   color: white !important;
   transform: scale(1.05);
 }
 
-.leaflet-control-attribution {
+.map-container .leaflet-control-attribution {
   background: white !important;
   font-size: 10px !important;
   padding: 2px 6px !important;
@@ -108,6 +201,14 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
 }
 
-.leaflet-bottom.leaflet-right {
-  z-index: 800 !important;
+.map-container .leaflet-bottom.leaflet-right {
+  z-index: var(--leaflet-control-z, 20) !important;
+}
+
+.map-container .leaflet-top .leaflet-control {
+  margin-top: var(--leaflet-control-top, 12px) !important;
+}
+
+.map-container .leaflet-left .leaflet-control {
+  margin-left: var(--leaflet-control-left, 12px) !important;
 }
