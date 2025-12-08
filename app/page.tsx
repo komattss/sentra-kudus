@@ -1,10 +1,9 @@
 "use client";
 
 import ServiceCard from "@/components/ServiceCard";
-import FeatureModal from "@/components/FeatureModal";
 import { homeFeatures } from "@/data/homeFeatures";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   CheckCircle,
   Zap,
@@ -18,20 +17,36 @@ import {
   Cloud,
   ShoppingCart,
   Star as StarIcon,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  Wind,
 } from "lucide-react";
 
 export default function Home() {
-  const [selectedFeature, setSelectedFeature] = useState<
-    (typeof homeFeatures)[0] | null
-  >(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // Background carousel state
+  const backgroundImages = [
+    "/backgroundsentra.jpg",
+    "/bgsentracr.jpg",
+    "/bgsentracrl.jpg",
+  ];
+  const [currentBgIndex, setCurrentBgIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
 
-  const handleLearnMore = (feature: (typeof homeFeatures)[0]) => {
-    setSelectedFeature(feature);
-    setIsModalOpen(true);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsTransitioning(true);
+      setCurrentBgIndex((prev) => prev + 1);
+    }, 5000); // Ganti gambar setiap 5 detik
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    // Reset ke awal tanpa animasi setelah mencapai gambar duplikat terakhir
+    if (currentBgIndex === backgroundImages.length) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentBgIndex(0);
+      }, 700); // Sama dengan duration animasi
+    }
+  }, [currentBgIndex, backgroundImages.length]);
 
   const getFeatureIcon = (id: number) => {
     switch (id) {
@@ -52,16 +67,32 @@ export default function Home() {
     <main className="min-h-screen pt-18 pb-12 bg-white">
       {/* Hero Section with Background Image */}
       <section className="relative text-white py-32 overflow-hidden">
-        {/* Background Image with Overlay */}
+        {/* Background Image Carousel with Overlay */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/backgroundsentra.jpg"
-            alt="Sentrakudus Background"
-            fill
-            className="object-cover"
-            priority
-            quality={90}
-          />
+          <div
+            className={`flex h-full ${
+              isTransitioning
+                ? "transition-transform duration-700 ease-in-out"
+                : ""
+            }`}
+            style={{ transform: `translateX(${currentBgIndex * -100}%)` }}
+          >
+            {[...backgroundImages, backgroundImages[0]].map((image, index) => (
+              <div
+                key={index}
+                className="min-w-full h-full relative `flex-shrink-0"
+              >
+                <Image
+                  src={image}
+                  alt={`Sentrakudus Background ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                  quality={90}
+                />
+              </div>
+            ))}
+          </div>
           {/* Gradient Overlay untuk keterbacaan teks */}
           <div className="absolute inset-0 bg-linear-to-br from-sage-600/90 via-sage-700/88 to-sage-900/92"></div>
           {/* Vignette to darken edges */}
@@ -125,7 +156,6 @@ export default function Home() {
                 description={feature.description}
                 href={feature.href}
                 color={feature.color}
-                onLearnMore={() => handleLearnMore(feature)}
               />
             ))}
           </div>
@@ -271,7 +301,7 @@ export default function Home() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div className="group relative p-8 bg-white/95 rounded-2xl shadow-lg border-2 border-white hover:shadow-2xl hover:bg-white transition-all duration-300 hover:scale-105 animate-slide-up">
+            <div className="group relative p-8 bg-white/95 rounded-2xl shadow-lg border border-black/20 hover:shadow-2xl hover:bg-white transition-all duration-300 hover:scale-105 animate-slide-up">
               <div className="w-14 h-14 bg-sage-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-sage-600 group-hover:scale-110 transition-all duration-300">
                 <Users className="w-7 h-7 text-black transition-colors" />
               </div>
@@ -279,7 +309,7 @@ export default function Home() {
               <p className="text-black leading-relaxed">Pengguna Aktif</p>
             </div>
             <div
-              className="group relative p-8 bg-white/95 rounded-2xl shadow-lg border-2 border-white hover:shadow-2xl hover:bg-white transition-all duration-300 hover:scale-105 animate-slide-up"
+              className="group relative p-8 bg-white/95 rounded-2xl shadow-lg border border-black/20 hover:shadow-2xl hover:bg-white transition-all duration-300 hover:scale-105 animate-slide-up"
               style={{ animationDelay: "0.1s" }}
             >
               <div className="w-14 h-14 bg-sage-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-sage-600 group-hover:scale-110 transition-all duration-300">
@@ -289,7 +319,7 @@ export default function Home() {
               <p className="text-black leading-relaxed">Rating Aplikasi</p>
             </div>
             <div
-              className="group relative p-8 bg-white/95 rounded-2xl shadow-lg border-2 border-white hover:shadow-2xl hover:bg-white transition-all duration-300 hover:scale-105 animate-slide-up"
+              className="group relative p-8 bg-white/95 rounded-2xl shadow-lg border border-black/20 hover:shadow-2xl hover:bg-white transition-all duration-300 hover:scale-105 animate-slide-up"
               style={{ animationDelay: "0.2s" }}
             >
               <div className="w-14 h-14 bg-sage-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-sage-600 group-hover:scale-110 transition-all duration-300">
@@ -300,7 +330,7 @@ export default function Home() {
             </div>
           </div>
           <div className="text-center mb-8">
-            <button className="bg-white text-black px-12 py-4 rounded-xl font-bold text-lg hover:bg-sage-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105">
+            <button className="bg-white text-black px-12 py-4 rounded-xl font-bold text-lg hover:bg-sage-50 transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 border border-black/20">
               Mulai Eksplorasi Sekarang →
             </button>
           </div>
@@ -484,21 +514,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-
-      {/* Feature Modal */}
-      {selectedFeature && (
-        <FeatureModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          title={selectedFeature.title}
-          description={selectedFeature.description}
-          detailedInfo={selectedFeature.detailedInfo}
-          bannerUrl={selectedFeature.bannerUrl}
-          keyFeatures={selectedFeature.keyFeatures}
-          benefits={selectedFeature.benefits}
-          href={selectedFeature.href}
-        />
-      )}
     </main>
   );
 }
