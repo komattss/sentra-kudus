@@ -5,6 +5,7 @@ import { useState } from "react";
 import Rating from "@/components/Rating";
 import Badge from "@/components/Badge";
 import MapContainer from "@/components/MapContainer";
+import { useToast } from "@/components/ToastContainer";
 import {
   ShoppingCart,
   MapPin,
@@ -18,6 +19,7 @@ import {
 export default function UMKMMapPage() {
   const [selectedUMKM, setSelectedUMKM] = useState(umkmData[0]);
   const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
+  const { showSuccess } = useToast();
 
   const categories = ["Semua", ...new Set(umkmData.map((u) => u.category))];
 
@@ -206,7 +208,15 @@ export default function UMKMMapPage() {
 
                   {/* CTA Buttons */}
                   <div className="flex gap-4">
-                    <button className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+                    <button
+                      onClick={() =>
+                        showSuccess(
+                          "Hubungan Berhasil",
+                          `Anda telah berhasil menghubungi ${selectedUMKM.name}. Segera tunggu respons dari penjual.`
+                        )
+                      }
+                      className="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+                    >
                       Hubungi
                     </button>
                     <button className="flex-1 bg-gray-200 text-gray-800 font-bold py-3 rounded-lg hover:bg-gray-300 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">

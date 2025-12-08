@@ -2,11 +2,16 @@
 
 import { communityServices } from "@/data/communityServices";
 import Rating from "@/components/Rating";
+import ServiceModal from "@/components/ServiceModal";
 import { Users, MapPin, Phone, Mail, Search, CheckCircle } from "lucide-react";
 import { useState } from "react";
 
 export default function CommunityPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("Semua");
+  const [selectedService, setSelectedService] = useState<
+    (typeof communityServices)[0] | null
+  >(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categories = [
     ...new Set(communityServices.map((service) => service.category)),
@@ -18,6 +23,11 @@ export default function CommunityPage() {
       : communityServices.filter(
           (service) => service.category === selectedCategory
         );
+
+  const handleSelengkapnya = (service: (typeof communityServices)[0]) => {
+    setSelectedService(service);
+    setIsModalOpen(true);
+  };
 
   return (
     <main className="min-h-screen pt-18 pb-12 bg-linear-to-b from-purple-50 via-white to-purple-100">
@@ -122,7 +132,10 @@ export default function CommunityPage() {
                   </div>
 
                   {/* CTA */}
-                  <button className="w-full mt-4 bg-purple-500 hover:bg-purple-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+                  <button
+                    onClick={() => handleSelengkapnya(service)}
+                    className="w-full mt-4 bg-purple-500 hover:bg-purple-600 text-white font-medium py-2.5 px-4 rounded-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-lg"
+                  >
                     Selengkapnya →
                   </button>
                 </div>
@@ -172,6 +185,23 @@ export default function CommunityPage() {
           </div>
         </div>
       </section>
+
+      {/* Service Modal */}
+      {selectedService && (
+        <ServiceModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title={selectedService.name}
+          description={selectedService.description}
+          detailedInfo={selectedService.detailedInfo}
+          bannerUrl={selectedService.bannerUrl}
+          location={selectedService.location}
+          phone={selectedService.phone}
+          email={selectedService.email}
+          operatingHours={selectedService.operatingHours}
+          facilities={selectedService.facilities}
+        />
+      )}
     </main>
   );
 }

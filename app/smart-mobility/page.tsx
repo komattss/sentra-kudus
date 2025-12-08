@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import Badge from "@/components/Badge";
 import MapContainer from "@/components/MapContainer";
+import { useToast } from "@/components/ToastContainer";
 import {
   Zap,
   MapPin,
@@ -23,6 +24,23 @@ import {
 
 export default function SmartMobilityPage() {
   const [selectedRoad, setSelectedRoad] = useState(trafficData[0]);
+  const { showWarning, showError } = useToast();
+
+  const handleRoadSelect = (road: (typeof trafficData)[number]) => {
+    setSelectedRoad(road);
+    if (road.congestionLevel === "Padat") {
+      showWarning(
+        "Lalu Lintas Padat",
+        `Jalur ${road.roadName} sedang padat. Pertimbangkan rute alternatif atau cek transportasi publik.`
+      );
+    }
+    if (road.congestionLevel === "Macet") {
+      showError(
+        "Peringatan Macet",
+        `Jalur ${road.roadName} macet parah. Disarankan menunda perjalanan atau beralih ke moda lain.`
+      );
+    }
+  };
 
   const getCongestionLevelColor = (level: string) => {
     switch (level) {
@@ -292,7 +310,7 @@ export default function SmartMobilityPage() {
                   return (
                     <button
                       key={road.id}
-                      onClick={() => setSelectedRoad(road)}
+                      onClick={() => handleRoadSelect(road)}
                       className={`w-full p-4 rounded-lg text-left transition-all border-l-4 ${getBgColor(
                         road.congestionLevel
                       )} ${getBorderColor(road.congestionLevel)} ${
@@ -464,9 +482,6 @@ export default function SmartMobilityPage() {
                       </span>
                     </div>
                   </div>
-                  <button className="w-full mt-4 bg-red-500 text-white font-semibold py-2 rounded-lg transition-all duration-200 hover:bg-red-600 hover:shadow-md hover:scale-[1.02] hover:-translate-y-0.5">
-                    Pesan
-                  </button>
                 </div>
               ))}
             </div>

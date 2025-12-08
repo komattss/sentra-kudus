@@ -1,5 +1,10 @@
+"use client";
+
 import ServiceCard from "@/components/ServiceCard";
+import FeatureModal from "@/components/FeatureModal";
+import { homeFeatures } from "@/data/homeFeatures";
 import Image from "next/image";
+import { useState } from "react";
 import {
   CheckCircle,
   Zap,
@@ -13,9 +18,36 @@ import {
   Cloud,
   ShoppingCart,
   Star as StarIcon,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  Wind,
 } from "lucide-react";
 
 export default function Home() {
+  const [selectedFeature, setSelectedFeature] = useState<
+    (typeof homeFeatures)[0] | null
+  >(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLearnMore = (feature: (typeof homeFeatures)[0]) => {
+    setSelectedFeature(feature);
+    setIsModalOpen(true);
+  };
+
+  const getFeatureIcon = (id: number) => {
+    switch (id) {
+      case 1:
+        return "<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' /></svg>";
+      case 2:
+        return "<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2' /></svg>";
+      case 3:
+        return "<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z' /></svg>";
+      case 4:
+        return "<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0M5 17H3v-6l2 -5h9l4 5h1a2 2 0 0 1 2 2v4h-2' /></svg>";
+      default:
+        return "<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 10V3L4 14h7v7l9-11h-7z' /></svg>";
+    }
+  };
+
   return (
     <main className="min-h-screen pt-18 pb-12 bg-white">
       {/* Hero Section with Background Image */}
@@ -85,34 +117,17 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <ServiceCard
-              icon="<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z' /></svg>"
-              title="Services & Community"
-              description="Akses layanan kesehatan, pendidikan, dan sosial dari pemerintah"
-              href="/community"
-              color="bg-linear-to-br from-purple-500 to-purple-600 text-white"
-            />
-            <ServiceCard
-              icon="<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z' /></svg>"
-              title="Air Quality"
-              description="Pantau kualitas udara real-time di berbagai lokasi kota"
-              href="/air-monitoring"
-              color="bg-linear-to-br from-green-500 to-green-600 text-white"
-            />
-            <ServiceCard
-              icon="<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z' /></svg>"
-              title="Peta UMKM"
-              description="Temukan bisnis lokal, UMKM, dan produk unggulan daerah"
-              href="/umkm-map"
-              color="bg-linear-to-br from-orange-500 to-orange-600 text-white"
-            />
-            <ServiceCard
-              icon="<svg class='w-12 h-12' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M13 10V3L4 14h7v7l9-11h-7z' /></svg>"
-              title="Smart Mobility"
-              description="Informasi lalu lintas real-time dan opsi transportasi terbaik"
-              href="/smart-mobility"
-              color="bg-linear-to-br from-red-500 to-red-600 text-white"
-            />
+            {homeFeatures.map((feature) => (
+              <ServiceCard
+                key={feature.id}
+                icon={getFeatureIcon(feature.id)}
+                title={feature.title}
+                description={feature.description}
+                href={feature.href}
+                color={feature.color}
+                onLearnMore={() => handleLearnMore(feature)}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -469,6 +484,21 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Feature Modal */}
+      {selectedFeature && (
+        <FeatureModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title={selectedFeature.title}
+          description={selectedFeature.description}
+          detailedInfo={selectedFeature.detailedInfo}
+          bannerUrl={selectedFeature.bannerUrl}
+          keyFeatures={selectedFeature.keyFeatures}
+          benefits={selectedFeature.benefits}
+          href={selectedFeature.href}
+        />
+      )}
     </main>
   );
 }

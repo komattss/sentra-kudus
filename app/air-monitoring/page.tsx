@@ -1,13 +1,60 @@
 "use client";
 
 import { airQualityData, getAQIColor } from "@/data/airQuality";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Badge from "@/components/Badge";
 import MapContainer from "@/components/MapContainer";
 import { Cloud, MapPin, Info } from "lucide-react";
+import { useToast } from "@/components/ToastContainer";
 
 export default function AirMonitoringPage() {
   const [selectedStation, setSelectedStation] = useState(airQualityData[0]);
+  const { showWarning, showError } = useToast();
+
+  const handleStationSelect = useCallback(
+    (station: (typeof airQualityData)[number]) => {
+      setSelectedStation(station);
+
+      if (station.status === "Tidak Sehat") {
+        showWarning(
+          "Kualitas Udara Tidak Sehat",
+          `Stasiun ${station.location}: AQI ${station.aqi}. Batasi aktivitas luar ruang, gunakan masker jika perlu.`
+        );
+      }
+
+      if (station.status === "Sangat Tidak Sehat") {
+        showError(
+          "Peringatan Bahaya Kualitas Udara",
+          `Stasiun ${station.location}: AQI ${station.aqi}. Tetap di dalam ruangan, tutup ventilasi, dan gunakan purifier jika ada.`
+        );
+      }
+    },
+    [showError, showWarning]
+  );
+
+  // Simulate AQI monitoring
+  useEffect(() => {
+    const checkAQI = () => {
+      const avgAQI =
+        airQualityData.reduce((sum, station) => sum + station.aqi, 0) /
+        airQualityData.length;
+
+      if (avgAQI > 200) {
+        showError(
+          "Bahaya! Kualitas Udara Buruk",
+          "AQI rata-rata di atas 200. Hindari aktivitas outdoor."
+        );
+      } else if (avgAQI > 100) {
+        showWarning(
+          "Peringatan Kualitas Udara",
+          "AQI sedang. Kurangi aktivitas outdoor untuk grup sensitif."
+        );
+      }
+    };
+
+    // Check on mount
+    checkAQI();
+  }, [showError, showWarning]);
 
   const getStatusColor = (
     status: string
@@ -78,7 +125,7 @@ export default function AirMonitoringPage() {
               zoom={14}
               onMarkerClick={(marker) => {
                 const station = airQualityData.find((s) => s.id === marker.id);
-                if (station) setSelectedStation(station);
+                if (station) handleStationSelect(station);
               }}
               height="h-96"
               controlColor="#22c55e"
@@ -112,6 +159,7 @@ export default function AirMonitoringPage() {
             {/* Selected Station Detail */}
             <div className="lg:col-span-2">
               <div className="bg-white/95 rounded-lg shadow-lg p-8 border border-green-100">
+                {/* Main AQI Display & Pollutants */}
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="text-3xl font-bold text-gray-800">
                     {selectedStation.location}
@@ -123,7 +171,6 @@ export default function AirMonitoringPage() {
                   />
                 </div>
 
-                {/* Main AQI Display */}
                 <div
                   className={`${getAQIColor(
                     selectedStation.status
@@ -138,7 +185,6 @@ export default function AirMonitoringPage() {
                   <p className="text-lg">{selectedStation.status}</p>
                 </div>
 
-                {/* Pollutants Grid */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
                   <div className="bg-green-50 p-4 rounded-lg border border-green-100">
                     <p className="text-sm text-gray-600 mb-1">PM2.5</p>
@@ -185,7 +231,7 @@ export default function AirMonitoringPage() {
                 </div>
 
                 {/* Health Recommendations */}
-                <div className="p-6 bg-green-50 rounded-lg border border-green-200">
+                <div className="p-6 bg-green-50 rounded-lg border border-green-200 mt-8">
                   <div className="flex items-start gap-3">
                     <Info className="w-6 h-6 text-green-500 shrink-0 mt-0.5" />
                     <div>
@@ -231,7 +277,7 @@ export default function AirMonitoringPage() {
                 {airQualityData.map((station) => (
                   <button
                     key={station.id}
-                    onClick={() => setSelectedStation(station)}
+                    onClick={() => handleStationSelect(station)}
                     className={`w-full p-4 rounded-lg text-left transition-all ${
                       selectedStation.id === station.id
                         ? `${getAQIColor(station.status)} text-white font-bold`

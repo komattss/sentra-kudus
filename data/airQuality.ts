@@ -91,6 +91,36 @@ export const airQualityData: AirQualityReading[] = [
     timestamp: new Date(),
     status: "Baik",
   },
+  {
+    id: "station-006",
+    location: "Mlati Kidul",
+    latitude: -6.7908,
+    longitude: 110.8432,
+    aqi: 182,
+    pm25: 92,
+    pm10: 168,
+    o3: 84,
+    no2: 78,
+    so2: 34,
+    co: 1.9,
+    timestamp: new Date(),
+    status: "Sangat Tidak Sehat",
+  },
+  {
+    id: "station-007",
+    location: "Mejobo",
+    latitude: -6.8059,
+    longitude: 110.8651,
+    aqi: 74,
+    pm25: 30,
+    pm10: 76,
+    o3: 54,
+    no2: 34,
+    so2: 14,
+    co: 0.7,
+    timestamp: new Date(),
+    status: "Sedang",
+  }
 ];
 
 export const getAQIStatus = (aqi: number): AirQualityReading["status"] => {
