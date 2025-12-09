@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   Menu,
   X,
@@ -43,7 +43,7 @@ export default function Navbar() {
   const profileRef = useRef<HTMLDivElement>(null);
   const accessibilityRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
+  const pathname = usePathname();
 
   const { user, signOut } = useAuth();
 
@@ -84,6 +84,11 @@ export default function Navbar() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  // Hide navbar on login and register pages
+  if (pathname === "/login" || pathname === "/register") {
+    return null;
+  }
 
   const profileMenuItems = [
     { icon: User, label: "Informasi Akun", href: "/account/info" },
@@ -149,6 +154,11 @@ export default function Navbar() {
     { href: "/umkm-map", label: "UMKM Map" },
     { href: "/smart-mobility", label: "Smart Mobility" },
   ];
+
+  const handleLogout = async () => {
+    setIsProfileOpen(false);
+    await signOut();
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg z-1000">
@@ -579,12 +589,7 @@ export default function Navbar() {
                       <div className="border-t border-gray-200 pt-2 px-2">
                         <button
                           className="flex items-center gap-3 px-4 py-2.5 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-xl transition-all duration-200 w-full"
-                          onClick={async () => {
-                            setIsProfileOpen(false);
-                            await signOut();
-                            router.push("/login");
-                            router.refresh();
-                          }}
+                          onClick={handleLogout}
                         >
                           <LogOut className="w-5 h-5" />
                           <span className="font-medium text-sm">Sign Out</span>
@@ -699,12 +704,7 @@ export default function Navbar() {
             {/* Sign Out */}
             <button
               className="flex items-center gap-3 px-5 py-3 mx-2 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-xl transition-all duration-200 w-auto mt-2"
-              onClick={async () => {
-                setIsProfileOpen(false);
-                await signOut();
-                router.push("/login");
-                router.refresh();
-              }}
+              onClick={handleLogout}
             >
               <LogOut className="w-5 h-5" />
               <span className="font-semibold text-sm">Sign Out</span>
