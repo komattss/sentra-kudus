@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sage-50 text-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-sage-50 text-gray-900 dark:bg-[#1a1a1a] dark:text-white`}
       >
         <AuthProvider>
           <AuthTransition>

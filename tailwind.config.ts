@@ -11,7 +11,7 @@ const config: Config = {
     "./data/**/*.{ts,tsx,js,jsx}",
     "./pages/**/*.{ts,tsx,js,jsx}",
   ],
-  darkMode: "media",
+  darkMode: "class",
   theme: {
     extend: {
       colors: {

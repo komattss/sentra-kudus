@@ -32,7 +32,7 @@ export default function AuthTransition({
       const timer = setTimeout(() => {
         router.push("/login");
         router.refresh();
-      }, 2000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
