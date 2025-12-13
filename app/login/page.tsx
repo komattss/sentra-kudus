@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
@@ -15,12 +15,27 @@ export default function LoginPage() {
   const router = useRouter();
   const supabase = createClient();
 
+  // Clear any existing session on component mount
+  useEffect(() => {
+    const clearSession = async () => {
+      try {
+        await supabase.auth.signOut();
+      } catch (err) {
+        console.error("Error clearing session:", err);
+      }
+    };
+    clearSession();
+  }, [supabase.auth]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
     try {
+      // Clear any stale session first
+      await supabase.auth.signOut();
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -28,7 +43,7 @@ export default function LoginPage() {
 
       if (error) throw error;
 
-      if (data.user) {
+      if (data.user && data.session) {
         // Show loading page for 1.5 seconds
         await new Promise((resolve) => setTimeout(resolve, 1500));
         router.push("/");

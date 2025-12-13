@@ -136,7 +136,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="bg-white/90 border border-sage-100 shadow-lg rounded-3xl p-10 backdrop-blur-sm">
+        <div className="bg-white/90 shadow-sm rounded-3xl p-10 backdrop-blur-sm">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl sm:text-5xl font-extrabold mb-5 text-gray-900 tracking-tight">
               Fitur Unggulan

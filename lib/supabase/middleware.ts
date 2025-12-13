@@ -33,9 +33,38 @@ export async function updateSession(request: NextRequest) {
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  let user = null;
+
+  try {
+    const { data, error } = await supabase.auth.getUser();
+
+    if (error) {
+      // Log error but don't throw - just treat as no user
+      console.error("Auth error in middleware:", error.message);
+
+      // If refresh token error, clear cookies and let request continue
+      if (
+        error.message.includes("refresh_token") ||
+        error.message.includes("Refresh Token")
+      ) {
+        // Clear auth cookies
+        const cookieNames = request.cookies.getAll().map((c) => c.name);
+        cookieNames.forEach((name) => {
+          if (
+            name.includes("supabase") ||
+            name.includes("auth") ||
+            name.includes("sb-")
+          ) {
+            supabaseResponse.cookies.delete(name);
+          }
+        });
+      }
+    } else {
+      user = data.user;
+    }
+  } catch (err) {
+    console.error("Unexpected error in middleware:", err);
+  }
 
   // Protect routes yang memerlukan authentication
   if (

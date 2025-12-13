@@ -332,11 +332,13 @@ body {
   white-space: normal;
   display: -webkit-box;
   -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
 }
 
 .notification-message:hover {
-  -webkit-line-clamp: unset;
+  -webkit-line-clamp: none;
+  line-clamp: none;
   height: auto;
 }
 

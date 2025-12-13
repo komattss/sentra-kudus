@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Menu,
   X,
@@ -44,6 +44,7 @@ export default function Navbar() {
   const accessibilityRef = useRef<HTMLDivElement>(null);
   const notificationRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   const { user, signOut } = useAuth();
 
@@ -156,8 +157,23 @@ export default function Navbar() {
   ];
 
   const handleLogout = async () => {
-    setIsProfileOpen(false);
-    await signOut();
+    try {
+      setIsProfileOpen(false);
+
+      // Sign out
+      await signOut();
+
+      // Wait a moment for the signout to complete
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Redirect to login page
+      router.push("/login");
+      router.refresh();
+    } catch (error) {
+      console.error("Logout error:", error);
+      // Still redirect even if error
+      router.push("/login");
+    }
   };
 
   return (
@@ -196,10 +212,24 @@ export default function Navbar() {
             <div className="relative" ref={accessibilityRef}>
               <button
                 onClick={() => setIsAccessibilityOpen(!isAccessibilityOpen)}
-                className="p-2 rounded-xl text-gray-600 hover:bg-sage-100 hover:text-sage-600 hover:scale-105 transition-all duration-200 relative w-11 h-11 flex items-center justify-center"
+                className="p-2 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-black hover:scale-105 transition-all duration-200 relative w-11 h-11 flex items-center justify-center"
                 title="Menu Aksesibilitas"
               >
-                <Accessibility className="w-6 h-6" />
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="12" cy="5" r="2" strokeWidth="2" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M6 11h12M8 11v10M16 11v10M12 7v4"
+                  />
+                </svg>
               </button>
 
               {/* Accessibility Dropdown */}
@@ -208,9 +238,23 @@ export default function Navbar() {
                   {/* Header */}
                   <div className="px-4 py-3 border-b border-gray-200">
                     <div className="flex items-center gap-3">
-                      <Accessibility className="w-8 h-8 text-sage-600" />
+                      <svg
+                        className="w-8 h-8 text-black"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle cx="12" cy="5" r="2" strokeWidth="2" />
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M6 11h12M8 11v10M16 11v10M12 7v4"
+                        />
+                      </svg>
                       <div>
-                        <p className="font-bold text-gray-800">Aksesibilitas</p>
+                        <p className="font-bold text-black">Aksesibilitas</p>
                         <p className="text-xs text-gray-500">
                           Sesuaikan tampilan untuk kenyamanan Anda
                         </p>
@@ -223,9 +267,9 @@ export default function Navbar() {
                     {/* Voice Mode */}
                     <button
                       onClick={toggleSpeech}
-                      className={`flex items-center justify-between w-full px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 mb-1 ${
+                      className={`flex items-center justify-between w-full px-4 py-2.5 text-black hover:bg-gray-100 rounded-xl transition-all duration-200 mb-1 ${
                         settings.isSpeechEnabled
-                          ? "bg-blue-50 text-blue-600"
+                          ? "bg-gray-100 font-semibold"
                           : ""
                       }`}
                     >
@@ -235,9 +279,7 @@ export default function Navbar() {
                       </div>
                       <div
                         className={`w-10 h-5 rounded-full transition-colors ${
-                          settings.isSpeechEnabled
-                            ? "bg-blue-500"
-                            : "bg-gray-300"
+                          settings.isSpeechEnabled ? "bg-black" : "bg-gray-300"
                         } relative`}
                       >
                         <div
@@ -251,7 +293,7 @@ export default function Navbar() {
                     {/* Font Size Controls */}
                     <div className="px-4 py-2.5 mb-1">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium text-sm text-gray-700">
+                        <span className="font-medium text-sm text-black">
                           Ukuran Teks
                         </span>
                         <span className="text-xs text-gray-500">
@@ -261,7 +303,7 @@ export default function Navbar() {
                       <div className="flex gap-2">
                         <button
                           onClick={decreaseFontSize}
-                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300 rounded-lg transition-all duration-200"
+                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black rounded-lg transition-all duration-200"
                           disabled={settings.fontSize <= 80}
                         >
                           <ZoomOut className="w-4 h-4" />
@@ -269,7 +311,7 @@ export default function Navbar() {
                         </button>
                         <button
                           onClick={increaseFontSize}
-                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300 rounded-lg transition-all duration-200"
+                          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black rounded-lg transition-all duration-200"
                           disabled={settings.fontSize >= 200}
                         >
                           <ZoomIn className="w-4 h-4" />
@@ -281,8 +323,8 @@ export default function Navbar() {
                     {/* Grayscale */}
                     <button
                       onClick={toggleGrayscale}
-                      className={`flex items-center justify-between w-full px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 mb-1 ${
-                        settings.isGrayscale ? "bg-blue-50 text-blue-600" : ""
+                      className={`flex items-center justify-between w-full px-4 py-2.5 text-black hover:bg-gray-100 rounded-xl transition-all duration-200 mb-1 ${
+                        settings.isGrayscale ? "bg-gray-100 font-semibold" : ""
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -293,7 +335,7 @@ export default function Navbar() {
                       </div>
                       <div
                         className={`w-10 h-5 rounded-full transition-colors ${
-                          settings.isGrayscale ? "bg-blue-500" : "bg-gray-300"
+                          settings.isGrayscale ? "bg-black" : "bg-gray-300"
                         } relative`}
                       >
                         <div
@@ -307,9 +349,9 @@ export default function Navbar() {
                     {/* High Contrast */}
                     <button
                       onClick={toggleHighContrast}
-                      className={`flex items-center justify-between w-full px-4 py-2.5 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 mb-1 ${
+                      className={`flex items-center justify-between w-full px-4 py-2.5 text-black hover:bg-gray-100 rounded-xl transition-all duration-200 mb-1 ${
                         settings.isHighContrast
-                          ? "bg-blue-50 text-blue-600"
+                          ? "bg-gray-100 font-semibold"
                           : ""
                       }`}
                     >
@@ -321,9 +363,7 @@ export default function Navbar() {
                       </div>
                       <div
                         className={`w-10 h-5 rounded-full transition-colors ${
-                          settings.isHighContrast
-                            ? "bg-blue-500"
-                            : "bg-gray-300"
+                          settings.isHighContrast ? "bg-black" : "bg-gray-300"
                         } relative`}
                       >
                         <div
@@ -337,7 +377,7 @@ export default function Navbar() {
                     {/* Dark/Light Mode */}
                     <div className="px-4 py-2.5 mb-1">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium text-sm text-gray-700">
+                        <span className="font-medium text-sm text-black">
                           Mode Tampilan
                         </span>
                       </div>
@@ -346,8 +386,8 @@ export default function Navbar() {
                           onClick={toggleDarkMode}
                           className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 ${
                             settings.isDarkMode
-                              ? "bg-gray-900 text-white hover:bg-gray-800"
-                              : "bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300"
+                              ? "bg-black text-white hover:bg-gray-800"
+                              : "bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black"
                           }`}
                         >
                           <Moon className="w-4 h-4" />
@@ -359,8 +399,8 @@ export default function Navbar() {
                           }
                           className={`flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 ${
                             !settings.isDarkMode
-                              ? "bg-yellow-400 border border-yellow-500 text-gray-900 hover:bg-yellow-500"
-                              : "bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300"
+                              ? "bg-black text-white hover:bg-gray-800"
+                              : "bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black"
                           }`}
                         >
                           <Sun className="w-4 h-4" />
@@ -372,7 +412,7 @@ export default function Navbar() {
                     {/* Text Alignment */}
                     <div className="px-4 py-2.5 mb-1">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="font-medium text-sm text-gray-700">
+                        <span className="font-medium text-sm text-black">
                           Rata Tulisan
                         </span>
                       </div>
@@ -381,8 +421,8 @@ export default function Navbar() {
                           onClick={() => setTextAlignment("left")}
                           className={`flex items-center justify-center p-2.5 rounded-lg transition-all duration-200 ${
                             settings.textAlign === "left"
-                              ? "bg-blue-500 text-white hover:bg-blue-600"
-                              : "bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300"
+                              ? "bg-black text-white hover:bg-gray-800"
+                              : "bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black"
                           }`}
                           title="Kiri"
                         >
@@ -392,8 +432,8 @@ export default function Navbar() {
                           onClick={() => setTextAlignment("center")}
                           className={`flex items-center justify-center p-2.5 rounded-lg transition-all duration-200 ${
                             settings.textAlign === "center"
-                              ? "bg-blue-500 text-white hover:bg-blue-600"
-                              : "bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300"
+                              ? "bg-black text-white hover:bg-gray-800"
+                              : "bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black"
                           }`}
                           title="Tengah"
                         >
@@ -403,8 +443,8 @@ export default function Navbar() {
                           onClick={() => setTextAlignment("right")}
                           className={`flex items-center justify-center p-2.5 rounded-lg transition-all duration-200 ${
                             settings.textAlign === "right"
-                              ? "bg-blue-500 text-white hover:bg-blue-600"
-                              : "bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300"
+                              ? "bg-black text-white hover:bg-gray-800"
+                              : "bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black"
                           }`}
                           title="Kanan"
                         >
@@ -414,8 +454,8 @@ export default function Navbar() {
                           onClick={() => setTextAlignment("justify")}
                           className={`flex items-center justify-center p-2.5 rounded-lg transition-all duration-200 ${
                             settings.textAlign === "justify"
-                              ? "bg-blue-500 text-white hover:bg-blue-600"
-                              : "bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 hover:border-gray-300"
+                              ? "bg-black text-white hover:bg-gray-800"
+                              : "bg-white border border-gray-200 text-black hover:bg-gray-100 hover:border-black"
                           }`}
                           title="Rata Kiri-Kanan"
                         >
@@ -435,7 +475,7 @@ export default function Navbar() {
                         reset();
                         setIsAccessibilityOpen(false);
                       }}
-                      className="flex items-center gap-3 px-4 py-2.5 text-red-600 hover:bg-red-50 hover:text-red-700 rounded-xl transition-all duration-200 w-full"
+                      className="flex items-center gap-3 px-4 py-2.5 text-black hover:bg-gray-100 rounded-xl transition-all duration-200 w-full font-medium"
                     >
                       <RotateCcw className="w-5 h-5" />
                       <span className="font-medium text-sm">Atur Ulang</span>
