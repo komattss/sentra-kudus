@@ -212,7 +212,7 @@ export default function Navbar() {
             <div className="relative" ref={accessibilityRef}>
               <button
                 onClick={() => setIsAccessibilityOpen(!isAccessibilityOpen)}
-                className="p-2 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-black hover:scale-105 transition-all duration-200 relative w-11 h-11 flex items-center justify-center"
+                className="p-2 rounded-xl text-gray-600 hover:bg-sage-100 hover:text-sage-600 hover:scale-105 transition-all duration-200 relative w-11 h-11 flex items-center justify-center"
                 title="Menu Aksesibilitas"
               >
                 <svg
@@ -587,7 +587,7 @@ export default function Navbar() {
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className="flex items-center gap-2 rounded-xl hover:bg-sage-100 transition-all duration-200 w-11 h-11 justify-center"
                   >
-                    <UserCircle2 className="w-9 h-9 text-gray-600 hover:text-sage-600 hover:scale-110 transition-all duration-200" />
+                    <UserCircle2 className="w-6 h-6 text-gray-600 hover:text-sage-600 hover:scale-110 transition-all duration-200" />
                   </button>
 
                   {/* Dropdown Menu */}
@@ -654,7 +654,7 @@ export default function Navbar() {
             {/* Mobile Accessibility */}
             <button
               onClick={() => setIsAccessibilityOpen(!isAccessibilityOpen)}
-              className="p-1.5 rounded-xl text-gray-600 hover:bg-sage-100 hover:text-sage-600 hover:scale-105 transition-all duration-200 w-10 h-10 flex items-center justify-center"
+              className="p-2 rounded-xl text-gray-600 hover:bg-sage-100 hover:text-sage-600 hover:scale-105 transition-all duration-200 w-11 h-11 flex items-center justify-center"
             >
               <Accessibility className="w-6 h-6" />
             </button>
@@ -677,9 +677,9 @@ export default function Navbar() {
             {/* Mobile Profile */}
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="rounded-xl hover:bg-sage-100 transition-all duration-200 w-10 h-10 flex items-center justify-center"
+              className="rounded-xl hover:bg-sage-100 transition-all duration-200 w-11 h-11 flex items-center justify-center"
             >
-              <UserCircle2 className="w-8 h-8 text-gray-600 hover:text-sage-600 hover:scale-110 transition-all duration-200" />
+              <UserCircle2 className="w-6 h-6 text-gray-600 hover:text-sage-600 hover:scale-110 transition-all duration-200" />
             </button>
 
             {/* Mobile Menu Toggle */}

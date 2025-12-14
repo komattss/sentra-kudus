@@ -18,9 +18,18 @@ export default function ServiceCard({
   href,
   color,
 }: ServiceCardProps) {
+  // Mapping shadow color based on card color
+  const getShadowColor = () => {
+    if (color.includes("purple")) return "hover:shadow-purple-200";
+    if (color.includes("green")) return "hover:shadow-green-200";
+    if (color.includes("orange")) return "hover:shadow-orange-200";
+    if (color.includes("red")) return "hover:shadow-red-200";
+    return "hover:shadow-xl";
+  };
+
   return (
     <div
-      className={`${color} rounded-2xl shadow-md p-8 h-full transform hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl dark:bg-slate-900 animate-slide-up group relative flex flex-col`}
+      className={`${color} rounded-2xl shadow-md p-8 h-full transform hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ${getShadowColor()} dark:bg-slate-900 animate-slide-up group relative flex flex-col`}
     >
       <div className="mb-4" dangerouslySetInnerHTML={{ __html: icon }} />
       <h3 className="text-xl font-bold text-white dark:text-slate-100 mb-3">
